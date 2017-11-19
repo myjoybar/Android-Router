@@ -4,7 +4,7 @@ A simple and easy to use Android Router
 ## Features
  - 支持动态注入路由
  - 支持注解方式注入路由
- - 支持bandle传参
+ - 支持Bundle传参
  - 支持添加拦截器
  
 ## Installation
@@ -57,7 +57,7 @@ RouterManager
         .buildRule(new Rule("user", "user_main"))
         .go();
 ```
-#### stratActivityForResult启动Activity
+#### stratActivityForResult方式启动Activity
 ```java
 RouterManager
         .with(MainActivity.this)
