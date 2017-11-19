@@ -63,7 +63,7 @@ RouterManager
         .buildRule(new Rule("user", "user_main"))
         .go();
 ```
-#### stratActivityForResult方式启动Activity
+#### startActivityForResult方式启动Activity
 ```java
 RouterManager
         .with(MainActivity.this)
