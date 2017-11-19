@@ -1,26 +1,27 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion  rootProject.ext.android.compileSdkVersion
+
+
+
     defaultConfig {
-        applicationId "com.joybar.androidrouter"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath true
-            }
-        }
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -31,11 +32,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation rootProject.ext.dependencies.recyclerviewv7
-    implementation project(':moduleshop')
-    implementation project(':moduleuser')
-    implementation project(':librouter')
-    implementation project(':annotationprocessors')
-    implementation project(':annotation')
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
-
 }
