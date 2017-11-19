@@ -11,7 +11,7 @@ A simple and easy to use Android Router
 
 ## Sample Usage
 
-###Step1
+### Step1
 
 动态注入路由
 
@@ -45,9 +45,11 @@ InjectComponentUtil.inject("com.joybar.moduleuser.MainActivity");
 InjectComponentUtil.inject("com.joybar.moduleshop.MainActivity");
 ```
 
-###Step2
 
-####直接启动Activity
+### Step2
+
+#### 直接启动Activity
+
 
 ```java
 RouterManager
@@ -55,14 +57,16 @@ RouterManager
         .buildRule(new Rule("user", "user_main"))
         .go();
 ```
-####stratActivityForResult启动Activity
+#### stratActivityForResult启动Activity
 ```java
 RouterManager
         .with(MainActivity.this)
         .buildRule(new Rule("user", "user_main"))
         .goForResult(requestCode);
 ```
-####Activity传参并添加拦截器
+
+#### Activity传参并添加拦截器
+
 
 ```java
 Bundle bundle = new Bundle();
