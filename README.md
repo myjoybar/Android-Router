@@ -8,6 +8,12 @@ A simple and easy to use Android Router
  - 支持添加拦截器
  
 ## Installation
+### Gradle Dependency
+#####   Add the library to your project build.gradle
+```gradle
+compile 'com.joybar.librouter:librouter:1.0.0'
+```
+
 
 ## Sample Usage
 
