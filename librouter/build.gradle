@@ -14,7 +14,11 @@ android {
         versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
 
     buildTypes {
@@ -34,6 +38,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation rootProject.ext.dependencies.recyclerviewv7
+    api project(':annotationprocessors')
+    api project(':annotation')
 }
 
 def siteUrl = 'https://github.com/myjoybar/Android-Router'
