@@ -33,19 +33,17 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies.supportv7
-    implementation rootProject.ext.dependencies.constraintlayout
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation rootProject.ext.dependencies.recyclerviewv7
-    api project(':annotationprocessors')
-    api project(':annotation')
+//    api project(':annotationprocessors')
+//    api project(':annotation')
 }
 
 def siteUrl = 'https://github.com/myjoybar/Android-Router'
 def gitUrl = 'https://github.com/myjoybar/Android-Router.git'
 group = "com.joybar.librouter"
-version = "1.0.0"
+version = "1.0.1"
 
 install {
     repositories.mavenInstaller {

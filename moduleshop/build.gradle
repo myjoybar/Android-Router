@@ -11,11 +11,11 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                includeCompileClasspath true
-//            }
-//        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
 
     buildTypes {
@@ -36,7 +36,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation rootProject.ext.dependencies.recyclerviewv7
     implementation project(':librouter')
-//    implementation project(':annotationprocessors')
-//    implementation project(':annotation')
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
+    implementation project(':annotationprocessors')
+    implementation project(':annotation')
 }

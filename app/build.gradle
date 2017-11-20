@@ -9,7 +9,11 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
     buildTypes {
         release {
@@ -30,8 +34,7 @@ dependencies {
     implementation project(':moduleshop')
     implementation project(':moduleuser')
     implementation project(':librouter')
-//    implementation project(':annotationprocessors')
-//    implementation project(':annotation')
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
+    implementation project(':annotationprocessors')
+    implementation project(':annotation')
 
 }
