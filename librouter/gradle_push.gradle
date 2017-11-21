@@ -2,85 +2,84 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.joybar.router"
-version = "1.0.1"
+version = "1.0.4"
 
 def siteUrl = 'https://github.com/myjoybar/Android-Router'
 def issuesUrl = 'https://github.com/myjoybar/Android-Router/issues'
 def gitUrl = 'https://github.com/myjoybar/Android-Router.git'
-
-install {
-    repositories.mavenInstaller.pom.project {
-        packaging 'jar'
-        name 'Router'
-        artifactId "router"
-        description 'A simple and easy to use Android Router'
-        url siteUrl
-
-        licenses {
-            license {
-                name 'The Apache Software License, Version 2.0'
-                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-            }
-        }
-        developers {
-            developer {
-                id 'joybar'
-                name 'joybar'
-                email 'myjoybar@gmail.com'
-            }
-        }
-    }
-}
-
-task jar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-}
+def ARTIFACT_ID = 'librouter'
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
-
 task javadoc(type: Javadoc) {
     options.encoding = 'UTF-8'
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    failOnError false
+    source = 'src/main/java'
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    from javadoc.getDestinationDir()
     classifier = 'javadoc'
+    from javadoc.destinationDir
 }
-
 artifacts {
     archives javadocJar
     archives sourcesJar
 }
 
-bintray {
-    Properties properties = new Properties()
-    boolean hasLocalFile = false
-    if (project.rootProject.file('local.properties').exists()) {
-        hasLocalFile = true
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                description 'A simple and easy to use Android Router'
+                name ARTIFACT_ID
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'joybar'
+                        name 'joybar'
+                        email 'myjoybar@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
     }
-    user = hasLocalFile ? properties.getProperty("bintray.user") : ""
-    key = hasLocalFile ? properties.getProperty("bintray.apikey") : ""
+}
 
+Properties properties = new Properties()
+
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
         repo = "Andorid-Maven"
-        name = "router"
+        name = ARTIFACT_ID
         websiteUrl = siteUrl
-        issueTrackerUrl = issuesUrl
         vcsUrl = gitUrl
-        labels = ["Android", "Router"]
+        issueTrackerUrl = issuesUrl
         licenses = ["Apache-2.0"]
-        publicDownloadNumbers = true
         publish = true
     }
 }
+//./gradlew install
+//./gradlew bintrayUpload
 
 //./gradlew javadocJar
 //./gradlew sourcesJar

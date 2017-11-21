@@ -2,7 +2,6 @@ package com.joybar.moduleshop;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,11 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d(TAG, "this.getPackageName()=" + this.getPackageName());
-        Log.d(TAG, "this.getCallingPackage()=" + this.getCallingPackage());
-        Log.d(TAG, "this.getLocalClassName()=" + this.getLocalClassName());
-        Log.d(TAG, "this.getPackageCodePath()=" + this.getPackageCodePath());
-
         TextView tv = new TextView(this);
         tv.setTextSize(50);
         tv.setText("this is  Shop!!!, go to user");
@@ -30,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setClickForRouter3(tv);
 
     }
-
 
     private void setClickForRouter3(TextView tv) {
         Bundle mExtras = getIntent().getExtras();

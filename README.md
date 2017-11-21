@@ -11,8 +11,8 @@ A simple and easy to use Android Router
 ### Gradle Dependency
 #####   Add the library to your project build.gradle
 ```gradle
-compile 'com.joybar.router:router:1.0.1'
-compile 'com.joybar.router:compiler:1.0.1'
+compile 'com.joybar.router:router:1.0.4'
+compile 'com.joybar.router:compiler:1.0.4'
 ```
 
 
@@ -23,8 +23,8 @@ compile 'com.joybar.router:compiler:1.0.1'
 动态注入路由
 
 ```java
-RouterManager.registerRouter("user", "user_main", com.joybar.moduleuser.MainActivity.class);
-RouterManager.registerRouter("shop", "shop_main", com.joybar.moduleshop.MainActivity.class);
+Router.registerRouter("user", "user_main", com.joybar.moduleuser.MainActivity.class);
+Router.registerRouter("shop", "shop_main", com.joybar.moduleshop.MainActivity.class);
 
 ```
 OR
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 并在Application或者初始页面初始化注解路由器
 
 ```java
-InjectComponentUtil.inject("com.joybar.moduleuser.MainActivity");
-InjectComponentUtil.inject("com.joybar.moduleshop.MainActivity");
+RouterInject.inject("com.joybar.moduleuser.MainActivity");
+RouterInject.inject("com.joybar.moduleshop.MainActivity");
 ```
 
 
@@ -59,14 +59,14 @@ InjectComponentUtil.inject("com.joybar.moduleshop.MainActivity");
 
 
 ```java
-RouterManager
+    Router
         .with(MainActivity.this)
         .buildRule(new Rule("user", "user_main"))
         .go();
 ```
 #### startActivityForResult方式启动Activity
 ```java
-RouterManager
+    Router
         .with(MainActivity.this)
         .buildRule(new Rule("user", "user_main"))
         .goForResult(requestCode);
