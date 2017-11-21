@@ -78,7 +78,7 @@ RouterInject.inject("com.joybar.moduleshop.MainActivity");
 ```java
 Bundle bundle = new Bundle();
 bundle.putInt("id", 10000);
-RouterManager.with(MainActivity.this)
+Router.with(MainActivity.this)
         .buildRule(new Rule("shop", "shop_main"))
         .withExtra(bundle)
         .addInterceptor(new TestInterceptor())
