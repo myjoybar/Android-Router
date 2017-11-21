@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.joybar.annotation.RouterRegister;
-import com.joybar.librouter.RouterManager;
+import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
 
 @RouterRegister(module = "shop",path = "shop_main")
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouterManager.with(MainActivity.this)
+                Router.with(MainActivity.this)
                         .buildRule(new Rule("user", "user_main"))
                         .go();
                 finish();

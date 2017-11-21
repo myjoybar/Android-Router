@@ -34,7 +34,6 @@ dependencies {
     implementation project(':moduleshop')
     implementation project(':moduleuser')
     implementation project(':librouter')
-    implementation project(':annotationprocessors')
     implementation project(':annotation')
-
+    implementation project(':compiler')
 }

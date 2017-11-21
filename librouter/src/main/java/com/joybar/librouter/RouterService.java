@@ -30,7 +30,7 @@ public class RouterService implements IRouterManagerService {
     @Override
     public IRouterManagerService buildRule(Rule rule) {
         CheckUtils.checkNotNull(rule);
-        Rule registerRule = RouterManager.ruleMap.get(rule);
+        Rule registerRule = Router.ruleMap.get(rule);
         if (registerRule == null) {
             throw new IllegalArgumentException("You cannot build an unRegisterRule,have you register it?");
         }

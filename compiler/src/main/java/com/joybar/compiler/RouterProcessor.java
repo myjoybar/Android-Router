@@ -1,4 +1,4 @@
-package com.joybar.annotationprocessors;
+package com.joybar.compiler;
 
 import com.google.auto.service.AutoService;
 import com.joybar.annotation.RouterRegister;
@@ -125,7 +125,7 @@ public class RouterProcessor extends AbstractProcessor {
             printWriter.println("import android.content.BroadcastReceiver;");
             printWriter.println("public class " + createClassName + " {");
             printWriter.println("public static void "+Config.ROUTER_MANAGER_METHOD_NAME+"() {");
-            printWriter.println("com.joybar.librouter.RouterManager.registerRouter"
+            printWriter.println("com.joybar.librouter.Router.registerRouter"
                     + "(\"" + module
                     + "\", "
                     + "\"" + path
@@ -203,7 +203,7 @@ public class RouterProcessor extends AbstractProcessor {
         return MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .returns(void.class)
-                .addStatement("com.joybar.librouter.RouterManager.registerRouter"
+                .addStatement("com.joybar.librouter.Router.registerRouter"
                         + "(\"" + module + "\","
                         + "\"" + path + "\","
                         + classFullName

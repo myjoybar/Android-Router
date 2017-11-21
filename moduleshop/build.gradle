@@ -36,6 +36,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation rootProject.ext.dependencies.recyclerviewv7
     implementation project(':librouter')
-    implementation project(':annotationprocessors')
+    implementation project(':compiler')
     implementation project(':annotation')
 }

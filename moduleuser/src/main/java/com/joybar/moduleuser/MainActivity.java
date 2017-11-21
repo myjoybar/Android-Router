@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.joybar.annotation.RouterRegister;
 import com.joybar.librouter.InterceptorCallback;
-import com.joybar.librouter.RouterManager;
+import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
 import com.joybar.librouter.interceptor.TestInterceptor;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouterManager.with(MainActivity.this)
+                Router.with(MainActivity.this)
                         .buildRule(new Rule("shop", "shop_main"))
                         .withExtra(bundle)
                         .addInterceptor(new TestInterceptor())

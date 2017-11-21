@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by joybar on 2017/11/13.
  */
 
-public class RouterManager {
+public class Router {
 	public static Map<Rule, Rule> ruleMap = new HashMap<>();
 
 	public static void registerRouter(String module,String path,Class klass) {

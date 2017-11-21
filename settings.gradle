@@ -1,1 +1,1 @@
-include ':app', ':annotation', ':annotationprocessors', ':moduleuser', ':moduleshop', ':librouter'
+include ':app', ':annotation', ':compiler', ':moduleuser', ':moduleshop', ':librouter'
