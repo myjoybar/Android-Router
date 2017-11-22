@@ -11,8 +11,8 @@ A simple and easy to use Android Router
 ### Gradle Dependency
 #####   Add the library to your project build.gradle
 ```gradle
-compile 'com.joybar.router:router:1.0.4'
-compile 'com.joybar.router:compiler:1.0.4'
+compile 'com.joybar.router:librouter:1.0.5'
+compile 'com.joybar.router:compiler:1.0.5'
 ```
 
 

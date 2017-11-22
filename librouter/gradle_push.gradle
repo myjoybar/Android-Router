@@ -2,7 +2,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.joybar.router"
-version = "1.0.4"
+version = "1.0.5"
 
 def siteUrl = 'https://github.com/myjoybar/Android-Router'
 def issuesUrl = 'https://github.com/myjoybar/Android-Router/issues'
@@ -13,15 +13,19 @@ task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
+
 task javadoc(type: Javadoc) {
     options.encoding = 'UTF-8'
-    source = 'src/main/java'
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.getDestinationDir()
     classifier = 'javadoc'
-    from javadoc.destinationDir
 }
+
 artifacts {
     archives javadocJar
     archives sourcesJar

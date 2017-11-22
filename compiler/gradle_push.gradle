@@ -1,7 +1,7 @@
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
-def VERSION = "1.0.4"
+def VERSION = "1.0.5"
 def GROUP = 'com.joybar.router'
 def ARTIFACT_ID = 'compiler'
 
@@ -17,12 +17,7 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
 artifacts {
-    archives javadocJar
     archives sourcesJar
 }
 
