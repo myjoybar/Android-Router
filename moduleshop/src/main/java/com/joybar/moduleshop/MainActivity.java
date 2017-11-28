@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.joybar.annotation.RouterRegister;
 import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
+import com.me.obo.map.RouteMap$$moduleuser;
 
 @RouterRegister(module = "shop",path = "shop_main")
 public class MainActivity extends AppCompatActivity {
@@ -32,9 +33,12 @@ public class MainActivity extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.with(MainActivity.this)
-                        .buildRule(new Rule("user", "user_main"))
-                        .go();
+//                Router.with(MainActivity.this)
+//                        .buildRule(new Rule("user", "user_main"))
+//                        .go();
+
+                RouteMap$$moduleuser.roudToUser_main().navigation(this);
+
                 finish();
 
 //				Intent mIntent = new Intent();

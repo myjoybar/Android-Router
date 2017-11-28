@@ -35,4 +35,5 @@ dependencies {
     implementation project(':librouter')
     implementation project(':annotation')
     implementation project(':compiler')
+    implementation project(':inrouter')
 }
