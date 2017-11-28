@@ -8,11 +8,15 @@ import android.widget.TextView;
 import com.joybar.annotation.RouterRegister;
 import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
+import com.me.obo.annotation.DataParam;
 import com.me.obo.map.RouteMap$$moduleuser;
 
 @RouterRegister(module = "shop",path = "shop_main")
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
+
+    @DataParam
+    public int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

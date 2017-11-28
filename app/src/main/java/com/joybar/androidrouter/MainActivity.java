@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .buildRule(new Rule("user", "user_main"))
 //                        .go();
 
-                RouteMap$$moduleshop.roudToShop_main().navigation(MainActivity.this);
+                RouteMap$$moduleshop.roudToShop_main(23).navigation(MainActivity.this);
             }
         });
     }

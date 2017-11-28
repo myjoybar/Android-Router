@@ -22,7 +22,7 @@ import javax.lang.model.element.Modifier;
 public class CodeMaker {
 
     private static final String ANNO_ROUTE = "@RouterRegister";
-    private static final String ANNNO_AUTOWIRED = "@Autowired";
+    private static final String ANNNO_AUTOWIRED = "@DataParam";
     private static final String ANNNO_BIGDATA = "@BigData";
     private static final String PARAM_PATH = "path";
     private static final String PARAM_MODULE = "module";
