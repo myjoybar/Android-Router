@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .buildRule(new Rule("user", "user_main"))
 //                        .go();
 
-                RouteMap$$moduleuser.roudToUser_main().navigation(this);
+                RouteMap$$moduleuser.roudToUser_main().navigation(MainActivity.this);
 
                 finish();
 
