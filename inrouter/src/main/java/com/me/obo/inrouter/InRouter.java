@@ -82,6 +82,7 @@ public class InRouter {
         if (interceptor != null) {
             service.addInterceptor(interceptor);
         }
+        service.withExtra(bundle);
         service.go();
     }
 
