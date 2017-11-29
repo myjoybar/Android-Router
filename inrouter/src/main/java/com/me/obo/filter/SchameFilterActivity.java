@@ -17,7 +17,7 @@
 //        if(uri != null) {
 //            ARouter.getInstance()
 //                    .build(Uri.parse("/" + uri.getHost() + uri.getPath()))
-//                    .navigation();
+//                    .navigate();
 //        }
 //        finish();
 //    }

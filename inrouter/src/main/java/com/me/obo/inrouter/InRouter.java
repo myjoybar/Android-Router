@@ -2,14 +2,13 @@ package com.me.obo.inrouter;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 
-//import com.alibaba.android.arouter.facade.Postcard;
-//import com.alibaba.android.arouter.facade.callback.NavigationCallback;
-//import com.alibaba.android.arouter.launcher.ARouter;
 import com.joybar.librouter.IRouterManagerService;
 import com.joybar.librouter.InterceptorCallback;
 import com.joybar.librouter.Router;
@@ -19,7 +18,10 @@ import com.me.obo.annotation.BigData;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+
+//import com.alibaba.android.arouter.facade.Postcard;
+//import com.alibaba.android.arouter.facade.callback.NavigationCallback;
+//import com.alibaba.android.arouter.launcher.ARouter;
 
 /**
  * Created by obo on 2017/11/23.
@@ -47,8 +49,8 @@ public class InRouter {
         }
     }
 
-    String mPath;
 
+    String mPath;
     IRouterManagerService postcard;
     Rule rule;
 
@@ -72,9 +74,9 @@ public class InRouter {
     }
 
 
-    public void navigation(Activity activity) {
-//        postcard.navigation(activity);
-        IRouterManagerService service = Router.with(activity).buildRule(rule);
+    public void navigate(@NonNull  Context context) {
+//        postcard.navigate(activity);
+        IRouterManagerService service = Router.getRouterService().buildRule(rule);
         if (mNavigationCallback != null) {
             service.withInterceptorCallback(mNavigationCallback);
         }
@@ -82,13 +84,26 @@ public class InRouter {
         if (interceptor != null) {
             service.addInterceptor(interceptor);
         }
-        service.withExtra(bundle);
-        service.go();
+        if(null !=bundle ){
+            service.withExtra(bundle);
+        }
+        service.navigate(context);
     }
 
-//    public void navigation(Activity activity, int requetsCode) {
-//        postcard.navigation(activity, requetsCode, mNavigationCallback);
-//    }
+    public void navigate(Activity activity, int requestCode) {
+        IRouterManagerService service = Router.getRouterService().buildRule(rule);
+        if (mNavigationCallback != null) {
+            service.withInterceptorCallback(mNavigationCallback);
+        }
+
+        if (interceptor != null) {
+            service.addInterceptor(interceptor);
+        }
+        if(null !=bundle ){
+            service.withExtra(bundle);
+        }
+        service.navigate(activity,requestCode);
+    }
 
 
 

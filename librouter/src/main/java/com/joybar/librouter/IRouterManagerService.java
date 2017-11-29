@@ -1,5 +1,7 @@
 package com.joybar.librouter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.joybar.librouter.interceptor.RouteInterceptor;
@@ -23,8 +25,8 @@ public interface IRouterManagerService {
 
     boolean isIntercepted();
 
-    void go();
+    void navigate(Context context);
 
-    void goForResult(int requestCode);
+    void navigate(Activity activity,int requestCode);
 
 }

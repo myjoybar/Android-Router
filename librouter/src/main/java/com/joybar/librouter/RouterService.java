@@ -21,10 +21,9 @@ public class RouterService implements IRouterManagerService {
 	RouterRequest routerRequest;
 	private List<RouteInterceptor> routeInterceptors;
 
-	public RouterService(Context context) {
+	public RouterService() {
 		routerRequest = new RouterRequest();
 		routeInterceptors = new ArrayList<>();
-		routerRequest.setContext(context);
 	}
 
 	@Override
@@ -32,7 +31,7 @@ public class RouterService implements IRouterManagerService {
 		CheckUtils.checkNotNull(rule);
 		Rule registerRule = Router.ruleMap.get(rule);
 		if (registerRule == null) {
-			throw new IllegalArgumentException("You cannot build an unRegisterRule,have you " + "register it?");
+			throw new IllegalArgumentException("You cannot build an unRegisterRule,have you register it?");
 		}
 		routerRequest.setRule(registerRule);
 		return this;
@@ -40,20 +39,18 @@ public class RouterService implements IRouterManagerService {
 
 
 	@Override
-	public void go() {
+	public void navigate(Context context) {
 		if (!isIntercepted()) {
-			Context context = routerRequest.getContext();
 			CheckUtils.checkNotNull(context);
-			routerRequest.getContext().startActivity(buildIntent(context));
+			context.startActivity(buildIntent(context));
 		}
 	}
 
 	@Override
-	public void goForResult(int requestCode) {
+	public void navigate(Activity activity,int requestCode) {
 		if (!isIntercepted()) {
-			Context context = routerRequest.getContext();
-			CheckUtils.checkNotNull(context);
-			((Activity) routerRequest.getContext()).startActivityForResult(buildIntent(context),
+			CheckUtils.checkNotNull(activity);
+			activity.startActivityForResult(buildIntent(activity),
                     requestCode);
 		}
 	}

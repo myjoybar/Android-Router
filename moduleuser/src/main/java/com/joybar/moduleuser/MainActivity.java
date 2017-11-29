@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 			public void onClick(View v) {
 				final Bundle bundle = new Bundle();
 				bundle.putInt("id", 10000);
-				Router.with(MainActivity.this).buildRule(new Rule("shop", "shop_main")).withExtra
+				Router.getRouterService().buildRule(new Rule("shop", "shop_main")).withExtra
 						(bundle).addInterceptor(new TestInterceptor()).withInterceptorCallback(new
 																																															  InterceptorCallback() {
 					@Override
@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
 					}
 				})
-						// .goForResult(2);
-						.go();
+						// .navigate(2);
+						.navigate(MainActivity.this);
 
 				//finish();
 			}

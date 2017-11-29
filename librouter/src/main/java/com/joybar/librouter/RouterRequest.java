@@ -9,19 +9,11 @@ import android.os.Bundle;
 
 public class RouterRequest {
 
-	private Context context;
 	private Rule rule;
 	private InterceptorCallback interceptorCallback;
 	private Bundle bundle;
 	private byte [] bytes;
 
-	public Context getContext() {
-		return context;
-	}
-
-	public void setContext(Context context) {
-		this.context = context;
-	}
 
 	public Rule getRule() {
 		return rule;

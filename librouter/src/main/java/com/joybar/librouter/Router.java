@@ -1,10 +1,5 @@
 package com.joybar.librouter;
 
-import android.content.Context;
-import android.support.annotation.Nullable;
-
-import com.joybar.librouter.utils.CheckUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,9 +15,8 @@ public class Router {
 		ruleMap.put(rule,rule);
 	}
 
-	public static IRouterManagerService with(@Nullable Context context) {
-		CheckUtils.checkNotNull(context);
-		RouterService routerService = new RouterService(context);
+	public static IRouterManagerService getRouterService() {
+		RouterService routerService = new RouterService();
 		return routerService;
 	}
 

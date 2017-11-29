@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
 		btnGotoUser.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Router.with(MainActivity.this).buildRule(new Rule("user", "user_main")).go();
-				RouteMap$$moduleuser.roudToUser_main().navigation(MainActivity.this);
+				Router.getRouterService().buildRule(new Rule("user", "user_main")).navigate(MainActivity.this);
+				RouteMap$$moduleuser.roudToUser_main().navigate(MainActivity.this);
 				finish();
 
 //				Intent mIntent = new Intent();

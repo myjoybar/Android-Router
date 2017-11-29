@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 		findViewById(R.id.btn_main_user).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Router.with(MainActivity.this).buildRule(new Rule("user", "user_main")).go();
-				RouteMap$$moduleshop.roudToShop_main(23).navigation(MainActivity.this);
+				Router.getRouterService().buildRule(new Rule("user", "user_main")).navigate(MainActivity.this);
+				RouteMap$$moduleshop.roudToShop_main(23).navigate(MainActivity.this);
 			}
 		});
 	}
