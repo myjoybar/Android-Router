@@ -7,6 +7,7 @@ import android.view.View;
 import com.joybar.compiler.RouterInject;
 import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
+import com.me.obo.map.RouteMap$$moduleshop;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				Router.with(MainActivity.this).buildRule(new Rule("user", "user_main")).go();
+				RouteMap$$moduleshop.roudToShop_main(23).navigation(MainActivity.this);
 			}
 		});
 	}

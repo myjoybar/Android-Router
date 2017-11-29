@@ -80,4 +80,11 @@ dependencies {
     implementation project(':compiler')
     implementation project(':annotation')
     implementation project(':moduleeventbus')
+    implementation project(':inrouter')
+}
+
+preBuild << {
+    String cmd = "sh inrouter/maker/route.sh " + project.getName()
+    def cmdResult = cmd.execute().text.trim()
+    println cmdResult
 }

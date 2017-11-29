@@ -11,6 +11,8 @@ import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
 import com.joybar.moduleeventbus.ModuleEventBus;
 import com.joybar.moduleeventbus.data.ShopInfo;
+import com.me.obo.annotation.DataParam;
+import com.me.obo.map.RouteMap$$moduleuser;
 
 @RouterRegister(module = "shop", path = "shop_main")
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 	private Button btnGotoUser;
 	private Button btnPostDataForUser;
 	private TextView tvDes;
+	@DataParam
+	public int id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 		tvDes = findViewById(R.id.tv_des);
 	}
 
-	private void initData(){
+	private void initData() {
 		Bundle mExtras = getIntent().getExtras();
 		int id = mExtras.getInt("id", 0);
 		tvDes.setText(tvDes.getText().toString() + "\n" + "传过来的ID：" + id);
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Router.with(MainActivity.this).buildRule(new Rule("user", "user_main")).go();
+				RouteMap$$moduleuser.roudToUser_main().navigation(MainActivity.this);
 				finish();
 
 //				Intent mIntent = new Intent();
@@ -57,22 +62,20 @@ public class MainActivity extends AppCompatActivity {
 //				// 设置结果，并进行传送
 //				MainActivity.this.setResult(3, mIntent);
 //				finish();
-
 			}
 		});
 
 		btnPostDataForUser.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				ModuleEventBus.getInstance().post("com.joybar.moduleuser.MainActivity",
-//						"testReceiveModuleEventBusData","I am form shop");
-
 
 				ModuleEventBus.getInstance().post("I am form shop");
-				ModuleEventBus.getInstance().post(new ShopInfo("AAA","hanzghou"));
+				ModuleEventBus.getInstance().post(new ShopInfo("AAA", "hanzghou"));
 			}
 		});
+
 	}
 
-
 }
+
+
