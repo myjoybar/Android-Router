@@ -1,12 +1,15 @@
+
 ext {
     android = [
+            applicationId:"com.joybar.androidrouter",
             compileSdkVersion: 26,
             targetSdkVersion : 26,
             minSdkVersion    : 14,
-            buildToolsVersion: "23.0.3",
+            buildToolsVersion: "26.0.2",
             versionCode:6,
             versionName:"1.2.1"
     ]
+
 
     dependencies = [
             supportv4 : "com.android.support:support-v4:26.1.0",
@@ -16,20 +19,19 @@ ext {
     ]
 
     staging = [
-            versionCode1:348,
-            versionName1:'"3.0.4"',
+            versionCode:348,
+            versionName:'"3.0.4"',
 
     ]
     production = [
-            versionCode1:190,
-            versionName1:'"3.0.3"'
+            versionCode:190,
+            versionName:'"3.0.3"'
     ]
 
-
+    isDebugType = false
+    isPrintLog= false
 
 }
-project.ext.set("build_type_debug", "true")
-project.ext.set("build_type_mode", '"debug"')
-
-
+project.ext.set("is_debug_type",  "true")
+project.ext.set("is_print_log", "false")
 

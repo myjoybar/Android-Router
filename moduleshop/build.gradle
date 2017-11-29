@@ -1,15 +1,31 @@
-apply plugin: 'com.android.library'
-
+def isDebug = rootProject.ext.isDebugType
+if (isDebug) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+//./gradlew :moduleshop:assembleRelease
+//./gradlew :moduleshop:assembleDebug
 android {
+
     compileSdkVersion  rootProject.ext.android.compileSdkVersion
+    buildToolsVersion  rootProject.ext.android.buildToolsVersion
 
-
-
+    sourceSets {
+        main {
+            if (isDebug) {
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+        resourcePrefix 'shop_'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -18,10 +34,37 @@ android {
         }
     }
 
+    signingConfigs {
+        config {
+            storeFile file("./src/main/doc/test_realese.jks")
+            keyAlias "test"
+            storePassword "123456"
+            keyPassword "123456"
+        }
+        debug {
+            storeFile file("./src/main/doc/debug.jks")
+            keyAlias "debug"
+            storePassword "123456"
+            keyPassword "123456"
+        }
+    }
+
     buildTypes {
         release {
+            if (isDebug) {
+                signingConfig signingConfigs.config
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG_TYPE", project.is_debug_type
+        }
+        debug {
+            if (!isDebug) {
+                signingConfig signingConfigs.debug
+            }
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG_TYPE", project.is_debug_type
         }
     }
 
@@ -37,4 +80,5 @@ dependencies {
     implementation project(':librouter')
     implementation project(':compiler')
     implementation project(':annotation')
+    implementation project(':moduleeventbus')
 }

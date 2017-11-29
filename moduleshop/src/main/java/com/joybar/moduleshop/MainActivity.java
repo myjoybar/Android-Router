@@ -3,39 +3,53 @@ package com.joybar.moduleshop;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.joybar.annotation.RouterRegister;
 import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
+import com.joybar.moduleeventbus.ModuleEventBus;
+import com.joybar.moduleeventbus.data.ShopInfo;
 
-@RouterRegister(module = "shop",path = "shop_main")
+@RouterRegister(module = "shop", path = "shop_main")
 public class MainActivity extends AppCompatActivity {
-    private static String TAG = "MainActivity";
+	private static String TAG = "MainActivity";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	private Button btnGotoUser;
+	private Button btnPostDataForUser;
+	private TextView tvDes;
 
-        TextView tv = new TextView(this);
-        tv.setTextSize(50);
-        tv.setText("this is  Shop!!!, go to user");
-        setContentView(tv);
-        setClickForRouter3(tv);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.shop_activity_main);
+		initView();
+		initListener();
+		initData();
 
-    }
+	}
 
-    private void setClickForRouter3(TextView tv) {
-        Bundle mExtras = getIntent().getExtras();
-        int id = mExtras.getInt("id", 0);
-        tv.setText(tv.getText().toString() + "\n" + "传过来的ID：" + id);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Router.with(MainActivity.this)
-                        .buildRule(new Rule("user", "user_main"))
-                        .go();
-                finish();
+	private void initView() {
+		btnGotoUser = findViewById(R.id.btn_go);
+		btnPostDataForUser = findViewById(R.id.btn_post_data);
+		tvDes = findViewById(R.id.tv_des);
+	}
+
+	private void initData(){
+		Bundle mExtras = getIntent().getExtras();
+		int id = mExtras.getInt("id", 0);
+		tvDes.setText(tvDes.getText().toString() + "\n" + "传过来的ID：" + id);
+
+	}
+
+	private void initListener() {
+
+		btnGotoUser.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Router.with(MainActivity.this).buildRule(new Rule("user", "user_main")).go();
+				finish();
 
 //				Intent mIntent = new Intent();
 //				mIntent.putExtra("change01", "1000");
@@ -44,7 +58,21 @@ public class MainActivity extends AppCompatActivity {
 //				MainActivity.this.setResult(3, mIntent);
 //				finish();
 
-            }
-        });
-    }
+			}
+		});
+
+		btnPostDataForUser.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				ModuleEventBus.getInstance().post("com.joybar.moduleuser.MainActivity",
+//						"testReceiveModuleEventBusData","I am form shop");
+
+
+				ModuleEventBus.getInstance().post("I am form shop");
+				ModuleEventBus.getInstance().post(new ShopInfo("AAA","hanzghou"));
+			}
+		});
+	}
+
+
 }

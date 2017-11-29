@@ -2,12 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion  rootProject.ext.android.compileSdkVersion
+    buildToolsVersion  rootProject.ext.android.buildToolsVersion
     defaultConfig {
-        applicationId "com.joybar.androidrouter"
+        applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+        resourcePrefix 'app_'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {

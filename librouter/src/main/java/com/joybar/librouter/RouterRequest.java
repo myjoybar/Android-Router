@@ -13,6 +13,7 @@ public class RouterRequest {
 	private Rule rule;
 	private InterceptorCallback interceptorCallback;
 	private Bundle bundle;
+	private byte [] bytes;
 
 	public Context getContext() {
 		return context;
@@ -46,5 +47,11 @@ public class RouterRequest {
 		this.bundle = bundle;
 	}
 
+	public byte[] getBytes() {
+		return bytes;
+	}
 
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
+	}
 }
