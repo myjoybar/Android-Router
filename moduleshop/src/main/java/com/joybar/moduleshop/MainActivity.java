@@ -12,7 +12,6 @@ import com.joybar.librouter.Rule;
 import com.joybar.moduleeventbus.ModuleEventBus;
 import com.joybar.moduleeventbus.data.ShopInfo;
 import com.me.obo.annotation.DataParam;
-import com.me.obo.map.RouteMap$$moduleuser;
 
 @RouterRegister(module = "shop", path = "shop_main")
 public class MainActivity extends AppCompatActivity {
