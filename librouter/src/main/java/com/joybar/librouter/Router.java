@@ -18,7 +18,7 @@ public class Router {
     }
 
 
-    public static void registerRouter(RouteTable routeTable) {
+    public static void registerRouters(RouterTable routeTable) {
         List<Rule> rules = routeTable.buildRuleList();
         if (null != rules && rules.size() != 0) {
             for (Rule rule : rules) {
@@ -34,7 +34,7 @@ public class Router {
     }
 
 
-    public interface RouteTable {
+    public interface RouterTable {
         List<Rule> buildRuleList();
 
     }

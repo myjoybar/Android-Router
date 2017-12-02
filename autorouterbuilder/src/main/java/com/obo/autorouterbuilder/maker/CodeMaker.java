@@ -22,31 +22,32 @@ import javax.lang.model.element.Modifier;
 
 public class CodeMaker {
 
-    private static final String ANNO_ROUTE = "@RouterRegister";
-    private static final String ANNNO_AUTOWIRED = "@DataParam";
-    private static final String ANNNO_BIGDATA = "@BigData";
+    private static final String ANNOTATION_ROUTE = "@RouterRegister";
+    private static final String ANNOTATION_AUTOWIRED = "@DataParam";
+    private static final String ANNOTATION_BIGDATA = "@BigData";
     private static final String PARAM_PATH = "path";
     private static final String PARAM_MODULE = "module";
-
+    private static final String ROUTER_TABLE_PKN = "com.me.obo.routertable";
     private static final String FILE_PATH = "/inrouter/src/main/java";
 
-    public static void main(String []args) {
-        System.out.println("args.length = " + args.length);
-        autoGenerateModuleMethodName("module_shop");
-    }
+
+//    public static void main(String []args) {
+//        System.out.println("args.length = " + args.length);
+//        autoGenerateModuleMethodName("module_shop");
+//    }
 
 
-    public static void  autoGenerateModuleMethodName(String moduleName){
+    public static void autoGenerateModuleMethodName(String moduleName) {
 
-        System.out.println("moduleName = " + moduleName + " destinationPath = ");
+        System.out.println("moduleName = " + moduleName);
 
-        TypeSpec.Builder classBuilder = TypeSpec.classBuilder("RouteMap$$" + moduleName).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
+        TypeSpec.Builder classBuilder = TypeSpec.classBuilder("RouteTable$$" + moduleName).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
         File workFile = new File(moduleName + "/src/main/java/");
         List<File> files = FileUtils.getAllFiles(workFile);
         System.out.println("files.size() = " + files.size());
 
-        for (File file: files) {
-            StringBuffer stringBuffer=new StringBuffer("");
+        for (File file : files) {
+            StringBuffer stringBuffer = new StringBuffer("");
             try {
                 FileReader fileReader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -59,7 +60,7 @@ public class CodeMaker {
             }
             decoString(stringBuffer.toString(), classBuilder);
         }
-        JavaFile javaFile = JavaFile.builder("com.me.obo.map", classBuilder.build())
+        JavaFile javaFile = JavaFile.builder(ROUTER_TABLE_PKN, classBuilder.build())
                 .build();
         try {
             javaFile.writeTo(new File(System.getProperty("user.dir") + FILE_PATH));
@@ -71,14 +72,14 @@ public class CodeMaker {
 
     // 解析类文件，获取注解和对应的参数
     static void decoString(String fileString, TypeSpec.Builder builder) {
-        if (fileString.contains(ANNO_ROUTE)) {
-            int index = fileString.indexOf(ANNO_ROUTE);
+        if (fileString.contains(ANNOTATION_ROUTE)) {
+            int index = fileString.indexOf(ANNOTATION_ROUTE);
             String module = "";
             String path = "";
-            for (int i = index + ANNO_ROUTE.length(); i < fileString.length(); i++) {
+            for (int i = index + ANNOTATION_ROUTE.length(); i < fileString.length(); i++) {
                 if (fileString.charAt(i) == ')') {
-                    String content = fileString.substring(index + ANNO_ROUTE.length() + 1, i);
-                    Map<String, String>annotationParams = AnnotationUtil.getAnnotationParams(content);
+                    String content = fileString.substring(index + ANNOTATION_ROUTE.length() + 1, i);
+                    Map<String, String> annotationParams = AnnotationUtil.getAnnotationParams(content);
                     path = annotationParams.get(PARAM_PATH);
                     module = annotationParams.get(PARAM_MODULE);
                     break;
@@ -86,8 +87,8 @@ public class CodeMaker {
             }
             System.out.println("module = " + module);
             System.out.println("path = " + path);
-            Map<String, String> autowireParamMap = StringUtil.getParamMap(fileString, ANNNO_AUTOWIRED);
-            Map<String, String> bigValueParamMap = StringUtil.getParamMap(fileString, ANNNO_BIGDATA);
+            Map<String, String> autowireParamMap = StringUtil.getParamMap(fileString, ANNOTATION_AUTOWIRED);
+            Map<String, String> bigValueParamMap = StringUtil.getParamMap(fileString, ANNOTATION_BIGDATA);
             builder.addMethod(getMethodSpecWith(module, path, autowireParamMap, bigValueParamMap));
         }
     }
@@ -96,9 +97,10 @@ public class CodeMaker {
     public static MethodSpec getMethodSpecWith(String module, String path, Map<String, String> autowireParamMap, Map<String, String> bigValueParamMap) {
         final String LOCAL_ROUTE_NAME = "inrouter";
         ClassName classInRouter = ClassName.get("com.me.obo.inrouter", "InRouter");
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("GoTo" + StringUtil.getTypeWithFirstUpperCase( path))
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("GoTo" + StringUtil.getTypeWithFirstUpperCase(path))
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .addComment("module="+module+",Path = " + path)
+                .addComment("This class was automatically generated")
+                .addComment("module=" + module + ",path=" + path)
                 .returns(classInRouter);
 
         //创建 路由对象
@@ -108,14 +110,14 @@ public class CodeMaker {
         for (String key : autowireParamMap.keySet()) {
             TypeName type = TypeUtil.getTypeNameWithStr(autowireParamMap.get(key));
             methodBuilder.addParameter(type, key);
-            methodBuilder.addStatement("$N.with" + "" + StringUtil.getTypeWithFirstUpperCase(autowireParamMap.get(key))+"($S, $N)", LOCAL_ROUTE_NAME, key, key);
+            methodBuilder.addStatement("$N.with" + "" + StringUtil.getTypeWithFirstUpperCase(autowireParamMap.get(key)) + "($S, $N)", LOCAL_ROUTE_NAME, key, key);
         }
 
         //添加 bigDataParam
         for (String key : bigValueParamMap.keySet()) {
             TypeName type = TypeUtil.getTypeNameWithStr(bigValueParamMap.get(key));
             methodBuilder.addParameter(type, key);
-            methodBuilder.addStatement("$N.withBig" + "" + StringUtil.getTypeWithFirstUpperCase(bigValueParamMap.get(key))+"($S, $N)", LOCAL_ROUTE_NAME, key, key);
+            methodBuilder.addStatement("$N.withBig" + "" + StringUtil.getTypeWithFirstUpperCase(bigValueParamMap.get(key)) + "($S, $N)", LOCAL_ROUTE_NAME, key, key);
         }
 
         //添加 返回值

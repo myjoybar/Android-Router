@@ -9,7 +9,7 @@ import com.obo.autorouterbuilder.maker.CodeMaker;
 public class Builder {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("start");
         CodeMaker.autoGenerateModuleMethodName("moduleshop");
         CodeMaker.autoGenerateModuleMethodName("moduleuser");
     }

@@ -19,10 +19,6 @@ import com.me.obo.annotation.BigData;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-//import com.alibaba.android.arouter.facade.Postcard;
-//import com.alibaba.android.arouter.facade.callback.NavigationCallback;
-//import com.alibaba.android.arouter.launcher.ARouter;
-
 /**
  * Created by obo on 2017/11/23.
  */
@@ -75,7 +71,6 @@ public class InRouter {
 
 
     public void navigate(@NonNull  Context context) {
-//        postcard.navigate(activity);
         IRouterManagerService service = Router.getRouterService().buildRule(rule);
         if (mNavigationCallback != null) {
             service.withInterceptorCallback(mNavigationCallback);
