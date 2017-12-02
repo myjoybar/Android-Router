@@ -12,6 +12,7 @@ import com.joybar.librouter.Rule;
 import com.joybar.moduleeventbus.ModuleEventBus;
 import com.joybar.moduleeventbus.data.ShopInfo;
 import com.me.obo.annotation.DataParam;
+import com.me.obo.map.RouteMap$$moduleuser;
 
 @RouterRegister(module = "shop", path = "shop_main")
 public class MainActivity extends AppCompatActivity {
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Router.getRouterService().buildRule(new Rule("user", "user_main")).navigate(MainActivity.this);
-				RouteMap$$moduleuser.roudToUser_main().navigate(MainActivity.this);
+				RouteMap$$moduleuser.GoToUser_main().navigate(MainActivity.this);
 				finish();
 
 //				Intent mIntent = new Intent();

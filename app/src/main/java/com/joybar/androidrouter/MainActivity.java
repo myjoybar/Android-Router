@@ -8,6 +8,7 @@ import com.joybar.compiler.RouterInject;
 import com.joybar.librouter.Router;
 import com.joybar.librouter.Router.RouteTable;
 import com.joybar.librouter.Rule;
+import com.me.obo.map.RouteMap$$moduleshop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Router.getRouterService().buildRule(new Rule("user", "user_main")).navigate(MainActivity.this);
-                RouteMap$$moduleshop.roudToShop_main(23).navigate(MainActivity.this);
+                RouteMap$$moduleshop.GoToShop_main("obo",23).navigate(MainActivity.this);
             }
         });
     }

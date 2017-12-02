@@ -5,8 +5,8 @@ import java.lang.Integer;
 import java.lang.String;
 
 public final class RouteMap$$moduleshop {
-  public static InRouter GoToShop_main(String name, Integer id) {
-    // module=shop,Path = shop_main
+  public static InRouter roudToShop_main(String name, Integer id) {
+    // module=shopPath = shop_main
     InRouter inrouter =  new InRouter("shop", "shop_main");
     inrouter.withString("name", name);
     inrouter.withInt("id", id);
