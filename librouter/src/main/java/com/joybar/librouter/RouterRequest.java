@@ -1,6 +1,5 @@
 package com.joybar.librouter;
 
-import android.content.Context;
 import android.os.Bundle;
 
 /**
@@ -9,41 +8,32 @@ import android.os.Bundle;
 
 public class RouterRequest {
 
-	private Rule rule;
-	private InterceptorCallback interceptorCallback;
-	private Bundle bundle;
-	private byte [] bytes;
+    private Rule rule;
+    private InterceptorCallback interceptorCallback;
+    private Bundle bundle;
 
+    public Rule getRule() {
+        return rule;
+    }
 
-	public Rule getRule() {
-		return rule;
-	}
+    public void setRule(Rule rule) {
+        this.rule = rule;
+    }
 
-	public void setRule(Rule rule) {
-		this.rule = rule;
-	}
+    public InterceptorCallback getInterceptorCallback() {
+        return interceptorCallback;
+    }
 
-	public InterceptorCallback getInterceptorCallback() {
-		return interceptorCallback;
-	}
+    public void setInterceptorCallback(InterceptorCallback interceptorCallback) {
+        this.interceptorCallback = interceptorCallback;
+    }
 
-	public void setInterceptorCallback(InterceptorCallback interceptorCallback) {
-		this.interceptorCallback = interceptorCallback;
-	}
+    public Bundle getBundle() {
+        return bundle;
+    }
 
-	public Bundle getBundle() {
-		return bundle;
-	}
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
+    }
 
-	public void setBundle(Bundle bundle) {
-		this.bundle = bundle;
-	}
-
-	public byte[] getBytes() {
-		return bytes;
-	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
 }

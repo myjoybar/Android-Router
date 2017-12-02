@@ -106,11 +106,5 @@ public class RouterService implements IRouterManagerService {
         return this;
     }
 
-    @Override
-    public IRouterManagerService withExtra(byte[] bytes) {
-        routerRequest.setBytes(bytes);
-        return this;
-    }
-
 
 }

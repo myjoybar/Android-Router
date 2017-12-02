@@ -17,8 +17,6 @@ public interface IRouterManagerService {
 
     IRouterManagerService withExtra(Bundle bundle);
 
-    IRouterManagerService withExtra(byte [] bytes);
-
     IRouterManagerService withInterceptorCallback(InterceptorCallback interceptorCallback);
 
     IRouterManagerService addInterceptor(RouteInterceptor routeInterceptor);
