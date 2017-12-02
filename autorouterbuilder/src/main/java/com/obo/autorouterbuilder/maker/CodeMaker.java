@@ -1,9 +1,10 @@
-package com.me.obo.maker;
+package com.obo.autorouterbuilder.maker;
 
-import com.me.obo.maker.utils.AnnotationUtil;
-import com.me.obo.maker.utils.FileUtils;
-import com.me.obo.maker.utils.StringUtil;
-import com.me.obo.maker.utils.TypeUtil;
+
+import com.obo.autorouterbuilder.maker.utils.AnnotationUtil;
+import com.obo.autorouterbuilder.maker.utils.FileUtils;
+import com.obo.autorouterbuilder.maker.utils.StringUtil;
+import com.obo.autorouterbuilder.maker.utils.TypeUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -27,13 +28,15 @@ public class CodeMaker {
     private static final String PARAM_PATH = "path";
     private static final String PARAM_MODULE = "module";
 
+    private static final String FILE_PATH = "/inrouter/src/main/java";
+
     public static void main(String []args) {
         System.out.println("args.length = " + args.length);
-        if (args.length == 0) {
-            return;
-        }
-        String moduleName = args[0];
-//        String destinationPath = args[1];
+        autoGenerateModuleMethodName("module_shop");
+    }
+
+
+    public static void  autoGenerateModuleMethodName(String moduleName){
 
         System.out.println("moduleName = " + moduleName + " destinationPath = ");
 
@@ -59,7 +62,7 @@ public class CodeMaker {
         JavaFile javaFile = JavaFile.builder("com.me.obo.map", classBuilder.build())
                 .build();
         try {
-            javaFile.writeTo(new File(System.getProperty("user.dir") + "/inrouter/src/main/java"));
+            javaFile.writeTo(new File(System.getProperty("user.dir") + FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,9 +96,9 @@ public class CodeMaker {
     public static MethodSpec getMethodSpecWith(String module, String path, Map<String, String> autowireParamMap, Map<String, String> bigValueParamMap) {
         final String LOCAL_ROUTE_NAME = "inrouter";
         ClassName classInRouter = ClassName.get("com.me.obo.inrouter", "InRouter");
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("roudTo" + StringUtil.getTypeWithFirstUpperCase( path))
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("GoTo" + StringUtil.getTypeWithFirstUpperCase( path))
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .addComment("module="+module+"Path = " + path)
+                .addComment("module="+module+",Path = " + path)
                 .returns(classInRouter);
 
         //创建 路由对象

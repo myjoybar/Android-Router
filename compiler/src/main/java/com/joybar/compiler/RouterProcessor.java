@@ -71,8 +71,6 @@ public class RouterProcessor extends AbstractProcessor {
     }
 
 
-
-
     private void processRouterMap1(TypeElement element, RoundEnvironment roundEnv) {
         Set<? extends Element> routerElements = roundEnv.getElementsAnnotatedWith(RouterRegister.class);
         for (Element e : routerElements) {

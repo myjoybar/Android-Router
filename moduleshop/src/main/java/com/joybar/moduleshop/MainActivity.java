@@ -20,8 +20,11 @@ public class MainActivity extends AppCompatActivity {
 	private Button btnGotoUser;
 	private Button btnPostDataForUser;
 	private TextView tvDes;
+
 	@DataParam
 	public int id;
+	@DataParam
+	public String name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

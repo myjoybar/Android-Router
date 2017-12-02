@@ -6,6 +6,7 @@ A simple and easy to use Android Router
  - 支持注解方式注入路由
  - 支持Bundle传参
  - 支持添加拦截器
+ - 自动生成module调用方法（ Thanks for [Obo](https://github.com/OboBear)）
  
 ## Installation
 ### Gradle Dependency
