@@ -85,7 +85,6 @@ public class App extends Application implements ApplicationService {
 
     @Override
     public void loadModuleApplicationService() {
-
         int size = moduleApplications.length;
         for (int i = 0; i < size; i++) {
             try {
@@ -103,10 +102,7 @@ public class App extends Application implements ApplicationService {
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     }
 
     @Override
