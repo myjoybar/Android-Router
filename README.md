@@ -7,6 +7,7 @@ A simple and easy to use Android Router
  - 支持Bundle传参
  - 支持添加拦截器
  - 自动生成module调用方法（ Thanks for [Obo](https://github.com/OboBear)）
+ -  moduleEventBus
  
 ## Installation
 ### Gradle Dependency
@@ -67,7 +68,7 @@ RouterInject.inject("com.joybar.moduleshop.MainActivity");
 方式一：
 
 ```java
-Router.getRouterService()
+Router.create()
 		.buildRule(new Rule("shop", "shop_main"))
 		.navigate(context);
 ```
