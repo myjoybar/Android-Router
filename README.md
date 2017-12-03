@@ -20,7 +20,7 @@ compile 'com.joybar.router:compiler:1.0.5'
 
 ## Sample Usage
 
-### Step1
+### Step1（初始化）
 
 方式一：动态注入路由
 
@@ -60,8 +60,39 @@ RouterInject.inject("com.joybar.moduleuser.MainActivity");
 RouterInject.inject("com.joybar.moduleshop.MainActivity");
 ```
 
+### Step2（生成路由引导模块，可选）
 
-### Step2
+- 在此添加需要生成路由引导模块的module,运行Builder#main，
+- 在routertable路径下生成RouterTable$$moduleuser和RouterTable$$moduleshop以及相关的调用方法
+
+```java
+public class Builder {
+
+    public static void main(String[] args) {
+        System.out.println("=============start build=============");
+        CodeMaker.autoGenerateModuleMethodName("moduleshop");
+        CodeMaker.autoGenerateModuleMethodName("moduleuser");
+        System.out.println("=============end build=============");
+    }
+
+}
+```
+example:
+
+```java
+  ...
+  public static AutoRouter GoToShop_receive_param(String name, Integer id) {
+    // This class was generated automatically 2017-12-03 20:19:46
+    // module=shop,path=shop_receive_param
+    AutoRouter autoRouterBuilder =  new AutoRouter("shop", "shop_receive_param");
+    autoRouterBuilder.withString("name", name);
+    autoRouterBuilder.withInt("id", id);
+    return autoRouterBuilder;
+  }
+  ...
+
+```
+### Step3（使用）
 
 #### 1.   直接启动Activity
 
