@@ -21,16 +21,22 @@ compile 'com.joybar.router:compiler:1.0.5'
 
 ### Step1
 
-动态注入路由
+方式一：动态注入路由
 
 ```java
-Router.registerRouter("user", "user_main", com.joybar.moduleuser.MainActivity.class);
-Router.registerRouter("shop", "shop_main", com.joybar.moduleshop.MainActivity.class);
+Router.registerRouters(new Router.RouterTable() {
+    @Override
+    public List<Rule> buildRuleList() {
+        List<Rule> ruleList = new ArrayList<>();
+        ruleList.add(new Rule("user", "user_main", com.joybar.moduleuser.MainActivity.class));
+        ruleList.add(new Rule("shop", "shop_main", com.joybar.moduleshop.MainActivity.class));
+        return ruleList;
+    }
+});
 
 ```
-OR
 
-注解方式注入路由
+方式二：注解方式注入路由
 
 ```java
 @RouterRegister(module = "user", path = "user_main")
@@ -56,14 +62,22 @@ RouterInject.inject("com.joybar.moduleshop.MainActivity");
 
 ### Step2
 
-#### 直接启动Activity
+####  直接启动Activity
 
+方式一：
 
 ```java
-    Router
-        .with(MainActivity.this)
-        .buildRule(new Rule("user", "user_main"))
-        .go();
+Router.getRouterService()
+		.buildRule(new Rule("user", "user_main"))
+		.navigate(context);
+```
+
+方式二  **（推荐 ）**：（RouteTable$$moduleuser 为自动生成的类,此类按照moduleuser的开发者指定的规则自动生成，对于其他使用者来说，只需关注RouteTable$$moduleuser中的调用方法即可）
+
+```java
+RouteTable$$moduleuser
+		.GoToUser_main()
+		.navigate(context);	
 ```
 #### startActivityForResult方式启动Activity
 ```java

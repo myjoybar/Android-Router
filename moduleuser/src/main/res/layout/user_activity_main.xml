@@ -1,28 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
- xmlns:app="http://schemas.android.com/apk/res-auto"
- xmlns:tools="http://schemas.android.com/tools"
- android:layout_width="match_parent"
- android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_go"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to main shop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
 
     <TextView
         android:id="@+id/tv_des"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="I am user main activity"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <Button
+        android:id="@+id/btn_simple_navigate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="简单跳转"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_go"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_des" />
 
+
+    <Button
+        android:id="@+id/btn_with_param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="参数跳转"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_simple_navigate" />
+
+    <Button
+        android:id="@+id/btn_with_interceptor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interceptor跳转"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_with_param" />
+
+
+    <Button
+        android:id="@+id/btn_for_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="stratActivityForResult"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_with_interceptor" />
+
+    <Button
+        android:id="@+id/btn_module_event_bus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="module event bus:module之间传输发送数据"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_for_result" />
 
 
 </android.support.constraint.ConstraintLayout>

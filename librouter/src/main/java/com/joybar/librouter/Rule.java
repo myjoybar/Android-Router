@@ -8,17 +8,17 @@ public class Rule {
 
 	private String module = "";
 	private String path = "";
-	private Class classz = null;
+	private Class clazz = null;
 
 	public Rule(String module, String path) {
 		this.module = module;
 		this.path = path;
 	}
 
-	public Rule(String module, String path, Class classz) {
+	public Rule(String module, String path, Class clazz) {
 		this.module = module;
 		this.path = path;
-		this.classz = classz;
+		this.clazz = clazz;
 	}
 
 	@Override
@@ -55,11 +55,17 @@ public class Rule {
 		this.path = path;
 	}
 
-	public Class getClassz() {
-		return classz;
+	public Class getClazz() {
+		return clazz;
 	}
 
-	public void setClassz(Class classz) {
-		this.classz = classz;
+	public void setClazz(Class clazz) {
+		this.clazz = clazz;
+	}
+
+	@Override
+	public String toString() {
+		return "Rule{" + "module='" + module + '\'' + ", path='" + path + '\'' + ", clazz=" +
+				clazz + '}';
 	}
 }

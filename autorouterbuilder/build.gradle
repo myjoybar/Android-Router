@@ -1,9 +1,39 @@
-apply plugin: 'java-library'
+apply plugin: 'com.android.library'
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.squareup:javapoet:1.9.0'
+android {
+    compileSdkVersion  rootProject.ext.android.compileSdkVersion
+    
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+//    sourceSets {
+//        main {
+//            java {
+//                srcDir 'maker/java'
+//            }
+//        }
+//    }
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //    implementation fileTree(include: ['*.jar'], dir: 'maker/libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation project(':librouter')
+    implementation project(':autorouterbuildercore')
+}

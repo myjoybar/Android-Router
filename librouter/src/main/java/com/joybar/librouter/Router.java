@@ -28,7 +28,7 @@ public class Router {
     }
 
 
-    public static IRouterManagerService getRouterService() {
+    public static IRouterManagerService create() {
         RouterService routerService = new RouterService();
         return routerService;
     }

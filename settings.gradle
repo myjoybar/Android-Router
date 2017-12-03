@@ -1,1 +1,1 @@
-include ':app', ':annotation', ':compiler', ':moduleuser', ':moduleshop', ':librouter', ':moduleeventbus', ':inrouter', ':autorouterbuilder'
+include ':app', ':annotation', ':compiler', ':moduleuser', ':moduleshop', ':librouter', ':moduleeventbus', ':autorouterbuilder', ':autorouterbuildercore'
