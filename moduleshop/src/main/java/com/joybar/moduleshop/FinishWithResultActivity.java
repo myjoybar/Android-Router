@@ -9,7 +9,7 @@ import com.joybar.annotation.RouterRegister;
 
 @RouterRegister(module = "shop", path = "shop_finish_with_result")
 public class FinishWithResultActivity extends AppCompatActivity {
-    private static String TAG = "FinishWithResultActivity";
+    private static final String TAG = "FinishWithResultActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

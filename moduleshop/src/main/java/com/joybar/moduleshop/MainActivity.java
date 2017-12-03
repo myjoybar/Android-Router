@@ -7,7 +7,7 @@ import com.joybar.annotation.RouterRegister;
 
 @RouterRegister(module = "shop", path = "shop_main")
 public class MainActivity extends AppCompatActivity {
-    private static String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

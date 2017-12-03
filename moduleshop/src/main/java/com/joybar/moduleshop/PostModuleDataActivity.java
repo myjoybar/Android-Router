@@ -10,7 +10,7 @@ import com.joybar.moduleeventbus.data.ShopInfo;
 
 @RouterRegister(module = "shop", path = "shop_post_module_data")
 public class PostModuleDataActivity extends AppCompatActivity {
-    private static String TAG = "PostDataActivity";
+    private static final String TAG = "PostDataActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
