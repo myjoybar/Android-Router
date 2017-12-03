@@ -27,29 +27,29 @@ public class ShopApplication implements ApplicationService {
         return ShopApplicationHolder.INSTANCE;
     }
 
-    public Application getMainApplication() {
-        if (null != application) {
-            return application;
+    @Override
+    public Application getApplication() {
+        if (null == application) {
+            try {
+                Class clazz = Class.forName("com.joybar.androidrouter.App");
+                Method method = clazz.getMethod("getInstance");
+                application = (Application) method.invoke(null);
+                return application;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
-        try {
-            Class clazz = Class.forName("com.joybar.androidrouter.App");
-            Method method = clazz.getMethod("getInstance");
-            Application application = (Application) method.invoke(null);
-            return application;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return application;
     }
 
     @Override
-    public void loadApplicationService() {
+    public void loadModuleApplicationService() {
         Log.d(TAG, "load shop application");
     }
 }

@@ -6,8 +6,10 @@ A simple and easy to use Android Router
  - 支持注解方式注入路由
  - 支持Bundle传参
  - 支持添加拦截器
+ - 支持module单独作为Application编译
+ - 支持主app的Application在各个module内调用
  - 自动生成module调用方法（ Thanks for [Obo](https://github.com/OboBear)）
- -  moduleEventBus
+ -  moduleEventBus实现module之间通信
  
 ## Installation
 ### Gradle Dependency

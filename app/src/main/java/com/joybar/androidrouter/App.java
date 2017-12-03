@@ -45,9 +45,10 @@ public class App extends Application implements ApplicationService {
         super.onCreate();
         AutoRouter.inject(this);
         initRouterByAnnotation();
-        // initRouterByDynamic();
         // OR
-        loadApplicationService();
+        // initRouterByDynamic();
+
+        loadModuleApplicationService();
     }
 
 
@@ -83,7 +84,7 @@ public class App extends Application implements ApplicationService {
 
 
     @Override
-    public void loadApplicationService() {
+    public void loadModuleApplicationService() {
 
         int size = moduleApplications.length;
         for (int i = 0; i < size; i++) {
@@ -91,7 +92,7 @@ public class App extends Application implements ApplicationService {
                 Class clazz = Class.forName(moduleApplications[i]);
                 Method method = clazz.getMethod("getInstance");
                 ApplicationService applicationService = (ApplicationService) method.invoke(null);
-                applicationService.loadApplicationService();
+                applicationService.loadModuleApplicationService();
 
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -107,4 +108,10 @@ public class App extends Application implements ApplicationService {
 
 
     }
+
+    @Override
+    public Application getApplication() {
+        return getInstance();
+    }
+
 }

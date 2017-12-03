@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initListener();
         ModuleEventBus.getInstance().register(this);
+        UserApplication.getInstance().getApplication().getApplicationContext();
 
     }
 
