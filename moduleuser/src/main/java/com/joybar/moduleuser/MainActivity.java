@@ -107,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                         .navigate(MainActivity
                         .this, 2);;
                 // OR
-//                Router.create().buildRule(new Rule("shop", "shop_finish_with_result"))
+//                Router.create()
+//                        .buildRule(new Rule("shop", "shop_finish_with_result"))
 //                        .navigate(MainActivity
 //                        .this, 2);
 
@@ -119,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Router.create().buildRule(new Rule("shop", "shop_main"))
+                Router.create()
+                        .buildRule(new Rule("shop", "shop_main"))
                         .addInterceptor(new TestInterceptor()).withInterceptorCallback(new InterceptorCallback() {
                     @Override
                     public void onIntercept(Object result) {

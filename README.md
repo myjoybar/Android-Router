@@ -62,55 +62,100 @@ RouterInject.inject("com.joybar.moduleshop.MainActivity");
 
 ### Step2
 
-####  直接启动Activity
+#### 1.   直接启动Activity
 
 方式一：
 
 ```java
 Router.getRouterService()
-		.buildRule(new Rule("user", "user_main"))
+		.buildRule(new Rule("shop", "shop_main"))
 		.navigate(context);
 ```
 
-方式二  **（推荐 ）**：（RouteTable$$moduleuser 为自动生成的类,此类按照moduleuser的开发者指定的规则自动生成，对于其他使用者来说，只需关注RouteTable$$moduleuser中的调用方法即可）
+方式二  **（推荐 ）**
+
+- RouteTable$$moduleuser为自动生成的类
+- 此类按照moduleuser的开发者指定的规则生成
+- 对于使用者来说，只需关注RouteTable$$moduleuser中的对外公开的方法即可
 
 ```java
-RouteTable$$moduleuser
-		.GoToUser_main()
-		.navigate(context);	
+RouterTable$$moduleshop
+        .GoToShop_main()
+        .navigate(context);
 ```
-#### startActivityForResult方式启动Activity
+#### 2. startActivityForResult方式启动Activity
 ```java
-    Router
-        .with(MainActivity.this)
-        .buildRule(new Rule("user", "user_main"))
-        .goForResult(requestCode);
+                RouterTable$$moduleshop.GoToShop_finish_with_result()
+                        .navigate(MainActivity
+                        .this, 2);;
+                        
+                // OR
+//                Router.create()
+//                        .buildRule(new Rule("shop", "shop_finish_with_result"))
+//                        .navigate(MainActivity
+//                        .this, 2);
 ```
 
-#### Activity传参并添加拦截器
-
+#### 3.  Activity之间参数传递
 
 ```java
-Bundle bundle = new Bundle();
-bundle.putInt("id", 10000);
-Router.with(MainActivity.this)
-        .buildRule(new Rule("shop", "shop_main"))
-        .withExtra(bundle)
-        .addInterceptor(new TestInterceptor())
-        .withInterceptorCallback(new InterceptorCallback() {
+                RouterTable$$moduleshop
+                        .GoToShop_receive_param("obo", 23)
+                        .navigate(context);
+
+                // OR
+//                final Bundle bundle = new Bundle();
+//                bundle.putInt("id", 123);
+//                bundle.putString("name", "obo");
+//                Router.create()
+//                        .buildRule(new Rule("shop", "shop_main"))
+//                        .withExtra(bundle)
+//                        .navigate(context);
+```
+
+#### 4.  为Router 添加拦截器
+
+```java
+  Router.create()
+                .buildRule(new Rule("shop", "shop_main"))
+                .addInterceptor(new TestInterceptor()).withInterceptorCallback(new InterceptorCallback() {
             @Override
             public void onIntercept(Object result) {
-                Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, result.toString(), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onContinue() {
-                Toast.makeText(MainActivity.this, "continue", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "continue", Toast.LENGTH_LONG).show();
 
             }
-        })
-        .go();
+        }).navigate(context);
 ```
+#### 5.  ModuleEventBus：modlue之间简单通信
+
+
+##### Step1 在Activity#onCreate注册
+```java
+ModuleEventBus.getInstance().register(this);
+```
+##### Step2 在Activity#onDestroy反注册
+```java
+ModuleEventBus.getInstance().unregister(this);
+```
+##### Step3 发送数据
+```java
+ModuleEventBus.getInstance().post(new ShopInfo("KFC", "Hangzhou Xihu"));
+
+```
+##### Step4 使用注解，接收数据
+```java
+@ModuleEvent()
+public void testReceiveModuleEventBusData(ShopInfo shopInfo) {
+    Toast.makeText(this, "I am user main activity,receive data from shop,msg=" + shopInfo.toString(), Toast
+            .LENGTH_LONG).show();
+}
+```
+
 
 ## License
 
