@@ -8,8 +8,8 @@ A simple and easy to use Android Router
  - 支持添加拦截器
  - 支持module单独作为Application编译
  - 支持主app的Application在各个module内调用
- - 自动生成module调用方法（ Thanks for [Obo](https://github.com/OboBear)）
- -  moduleEventBus实现module之间通信
+ - 路由引导模块：自动生成module的调用方法（ Thank for [Obo](https://github.com/OboBear)）
+ -  moduleEventBus：实现module之间通信
  
 ## Installation
 ### Gradle Dependency
@@ -109,7 +109,7 @@ Router.create()
 方式二  **（推荐 ）**
 
 - RouteTable$$moduleuser为自动生成的类
-- 此类按照moduleuser的开发者指定的规则生成
+- 此类按照moduleuser开发者指定的规则生成
 - 对于使用者来说，只需关注RouteTable$$moduleuser中的对外公开的方法即可
 
 ```java
