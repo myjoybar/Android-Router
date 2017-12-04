@@ -18,7 +18,6 @@ import com.joybar.librouter.interceptor.TestInterceptor;
 import com.joybar.moduleeventbus.ModuleEvent;
 import com.joybar.moduleeventbus.ModuleEventBus;
 import com.joybar.moduleeventbus.data.ShopInfo;
-import com.joybar.moduleuser.application.UserApplication;
 import com.me.obo.routertable.RouterTable$$moduleshop;
 
 @RouterRegister(module = "user", path = "user_main")
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_main);
-        context = UserApplication.getInstance().getApplication().getApplicationContext();
+        context = this;
         initView();
         initListener();
         ModuleEventBus.getInstance().register(this);

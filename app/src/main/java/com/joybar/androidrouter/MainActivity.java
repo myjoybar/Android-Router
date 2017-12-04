@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         RouterTable$$moduleuser
                 .GoToUser_main()
                 .navigate(MainActivity.this);
+        finish();
     }
 
 }

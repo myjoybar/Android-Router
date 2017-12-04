@@ -8,10 +8,10 @@ import com.joybar.compiler.RouterInject;
 import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
 import com.joybar.librouter.application.ApplicationService;
+import com.joybar.moduleshop.application.ShopApplication;
+import com.joybar.moduleuser.application.UserApplication;
 import com.me.obo.autorouter.AutoRouter;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +28,6 @@ public class App extends Application implements ApplicationService {
         Log.d(TAG,"get application");
         return INSTANCE;
     }
-
-    public static final String[] moduleApplications = {
-            "com.joybar.moduleuser.application.UserApplication",
-            "com.joybar.moduleshop.application.ShopApplication",
-    };
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -85,24 +80,8 @@ public class App extends Application implements ApplicationService {
 
     @Override
     public void loadModuleApplicationService() {
-        int size = moduleApplications.length;
-        for (int i = 0; i < size; i++) {
-            try {
-                Class clazz = Class.forName(moduleApplications[i]);
-                Method method = clazz.getMethod("getInstance");
-                ApplicationService applicationService = (ApplicationService) method.invoke(null);
-                applicationService.loadModuleApplicationService();
-
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
+        UserApplication.getInstance().loadModuleApplicationService();
+        ShopApplication.getInstance().loadModuleApplicationService();
     }
 
     @Override
