@@ -32,6 +32,6 @@ ext {
     isPrintLog= false
 
 }
-project.ext.set("is_debug_type",  "true")
+project.ext.set("is_debug_type",  "false")
 project.ext.set("is_print_log", "false")
 

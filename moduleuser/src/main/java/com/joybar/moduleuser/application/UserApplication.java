@@ -1,55 +1,45 @@
 package com.joybar.moduleuser.application;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.joybar.librouter.application.ApplicationService;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import com.joybar.moduleuser.BuildConfig;
 
 /**
- * Created by joybar on 03/12/2017.
+ * Created by joybar on 2017/12/4.
  */
 
 public class UserApplication implements ApplicationService {
-    private static final String TAG = "UserApplication";
-    private static Application application;
 
-    private UserApplication() {
-    }
+	private static final String TAG = "UserApplication";
 
-    private static class UserApplicationHolder {
-        private static final UserApplication INSTANCE = new UserApplication();
-    }
+	private UserApplication() {
+	}
 
-    public static final UserApplication getInstance() {
-        return UserApplicationHolder.INSTANCE;
-    }
+	private static class UserApplicationHolder {
+		private static final UserApplication INSTANCE = new UserApplication();
+	}
 
-    @Override
-    public Application getApplication() {
-        if (null == application) {
-            try {
-                Class clazz = Class.forName("com.joybar.androidrouter.App");
-                Method method = clazz.getMethod("getInstance");
-                application = (Application) method.invoke(null);
-                return application;
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-        return application;
-    }
+	public static final UserApplication getInstance() {
+		return UserApplicationHolder.INSTANCE;
+	}
 
-    @Override
-    public void loadModuleApplicationService() {
-        Log.d(TAG, "load user application");
-    }
+
+	@Override
+	public void loadModuleApplicationService() {
+		if (BuildConfig.IS_DEBUG_TYPE) {
+			UserDebugApplication.getInstance().loadModuleApplicationService();
+		} else {
+			UserReleaseApplication.getInstance().loadModuleApplicationService();
+		}
+	}
+
+	@Override
+	public Application getApplication() {
+		if (BuildConfig.IS_DEBUG_TYPE) {
+			return UserDebugApplication.getInstance().getApplication();
+		} else {
+			return UserReleaseApplication.getInstance().getApplication();
+		}
+	}
 }

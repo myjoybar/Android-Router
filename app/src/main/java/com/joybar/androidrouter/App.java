@@ -5,11 +5,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.joybar.compiler.RouterInject;
-import com.joybar.librouter.Router;
-import com.joybar.librouter.Rule;
+import com.joybar.librouter.*;
 import com.joybar.librouter.application.ApplicationService;
 import com.joybar.moduleshop.application.ShopApplication;
-import com.joybar.moduleuser.application.UserApplication;
+import com.joybar.moduleuser.application.UserReleaseApplication;
 import com.me.obo.autorouter.AutoRouter;
 
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class App extends Application implements ApplicationService {
 
     @Override
     public void loadModuleApplicationService() {
-        UserApplication.getInstance().loadModuleApplicationService();
+        UserReleaseApplication.getInstance().loadModuleApplicationService();
         ShopApplication.getInstance().loadModuleApplicationService();
     }
 
