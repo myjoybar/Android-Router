@@ -1,13 +1,15 @@
 package com.joybar.moduleshop;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.joybar.annotation.RouterRegister;
+import com.joybar.annotation.RegisterRouter;
 import com.me.obo.annotation.DataParam;
 
-@RouterRegister(module = "shop", path = "shop_receive_param")
+@RegisterRouter(module = "shop", path = "shop_receive_param")
 public class ReceiveParamActivity extends AppCompatActivity {
 
     private TextView tvDes;
@@ -15,6 +17,12 @@ public class ReceiveParamActivity extends AppCompatActivity {
     public int id;
     @DataParam
     public String name;
+
+
+    public static void  launch(Context context){
+        Intent intent = new Intent(context,ReceiveParamActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

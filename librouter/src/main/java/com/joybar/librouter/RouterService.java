@@ -47,6 +47,16 @@ public class RouterService implements IRouterManagerService {
     }
 
     @Override
+    public void navigate(Context context, int flag) {
+        if (!isIntercepted()) {
+            CheckUtils.checkNotNull(context);
+            Intent intent = buildIntent(context);
+            intent.addFlags(flag);
+            context.startActivity(intent);
+        }
+    }
+
+    @Override
     public void navigate(Activity activity, int requestCode) {
         if (!isIntercepted()) {
             CheckUtils.checkNotNull(activity);
@@ -54,6 +64,7 @@ public class RouterService implements IRouterManagerService {
                     requestCode);
         }
     }
+
 
     private Intent buildIntent(Context context) {
         Class klass = routerRequest.getRule().getClazz();

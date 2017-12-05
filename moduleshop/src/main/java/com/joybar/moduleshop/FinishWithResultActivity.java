@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.joybar.annotation.RouterRegister;
+import com.joybar.annotation.RegisterRouter;
 
-@RouterRegister(module = "shop", path = "shop_finish_with_result")
+@RegisterRouter(module = "shop", path = "shop_finish_with_result")
 public class FinishWithResultActivity extends AppCompatActivity {
     private static final String TAG = "FinishWithResultActivity";
 

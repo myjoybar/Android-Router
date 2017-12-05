@@ -85,7 +85,23 @@ public class AutoRouter {
         service.navigate(context);
     }
 
-    public void navigate(Activity activity, int requestCode) {
+    public void navigate(@NonNull Context context,int flag) {
+        IRouterManagerService service = Router.create().buildRule(rule);
+        if (mNavigationCallback != null) {
+            service.withInterceptorCallback(mNavigationCallback);
+        }
+
+        if (interceptor != null) {
+            service.addInterceptor(interceptor);
+        }
+        if(null !=bundle ){
+            service.withExtra(bundle);
+        }
+        service.navigate(context,flag);
+    }
+
+
+    public void navigate(@NonNull Activity activity, int requestCode) {
         IRouterManagerService service = Router.create().buildRule(rule);
         if (mNavigationCallback != null) {
             service.withInterceptorCallback(mNavigationCallback);

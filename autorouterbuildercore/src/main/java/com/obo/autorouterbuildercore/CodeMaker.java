@@ -24,7 +24,7 @@ import javax.lang.model.element.Modifier;
 
 public class CodeMaker {
 
-    private static final String ANNOTATION_ROUTE = "@RouterRegister";
+    private static final String ANNOTATION_ROUTE = "@RegisterRouter";
     private static final String ANNOTATION_AUTOWIRED = "@DataParam";
     private static final String ANNOTATION_BIGDATA = "@BigData";
     private static final String PARAM_PATH = "path";

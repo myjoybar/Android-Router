@@ -1,13 +1,15 @@
 package com.joybar.compiler;
 
 import com.google.auto.service.AutoService;
-import com.joybar.annotation.RouterRegister;
+import com.joybar.annotation.RegisterRouter;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -43,7 +45,7 @@ public class RouterProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         mStaticRouterMap.clear();
         for (TypeElement element : annotations) {
-            if (element.getQualifiedName().toString().equals(RouterRegister.class.getCanonicalName())) {
+            if (element.getQualifiedName().toString().equals(RegisterRouter.class.getCanonicalName())) {
               //  processRouterMap1(element, roundEnv);
 
                 try {
@@ -61,7 +63,7 @@ public class RouterProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> set = new HashSet<>();
-        set.add(RouterRegister.class.getCanonicalName());
+        set.add(RegisterRouter.class.getCanonicalName());
         return set;
     }
 
@@ -72,14 +74,14 @@ public class RouterProcessor extends AbstractProcessor {
 
 
     private void processRouterMap1(TypeElement element, RoundEnvironment roundEnv) {
-        Set<? extends Element> routerElements = roundEnv.getElementsAnnotatedWith(RouterRegister.class);
+        Set<? extends Element> routerElements = roundEnv.getElementsAnnotatedWith(RegisterRouter.class);
         for (Element e : routerElements) {
             if (!(e instanceof TypeElement)) {
                 continue;
             }
             TypeElement typeElement = (TypeElement) e;//代表被注解的元素
-            String module = typeElement.getAnnotation(RouterRegister.class).module();
-            String path = typeElement.getAnnotation(RouterRegister.class).path();
+            String module = typeElement.getAnnotation(RegisterRouter.class).module();
+            String path = typeElement.getAnnotation(RegisterRouter.class).path();
             // Class的完整路径
             String classFullName = typeElement.getQualifiedName().toString();
             System.out.println("module=" + module);
@@ -141,14 +143,14 @@ public class RouterProcessor extends AbstractProcessor {
 
     private void processRouterMap2(TypeElement element, RoundEnvironment roundEnv) throws IOException {
 
-        Set<? extends Element> routerElements = roundEnv.getElementsAnnotatedWith(RouterRegister.class);
+        Set<? extends Element> routerElements = roundEnv.getElementsAnnotatedWith(RegisterRouter.class);
         for (Element e : routerElements) {
             if (!(e instanceof TypeElement)) {
                 continue;
             }
             TypeElement typeElement = (TypeElement) e;
-            String module =typeElement.getAnnotation(RouterRegister.class).module();
-            String path = typeElement.getAnnotation(RouterRegister.class).path();
+            String module =typeElement.getAnnotation(RegisterRouter.class).module();
+            String path = typeElement.getAnnotation(RegisterRouter.class).path();
             String fullName = typeElement.getQualifiedName().toString();
 
             System.out.println("element.getQualifiedName=" + typeElement.getQualifiedName());
@@ -197,9 +199,11 @@ public class RouterProcessor extends AbstractProcessor {
     private MethodSpec computeAddRouter(String methodName, String module, String path, String classFullName) {
 
         classFullName = classFullName + ".class";
-
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addComment("This class was generated automatically "+sdf.format(d))
                 .returns(void.class)
                 .addStatement("com.joybar.librouter.Router.registerRouter"
                         + "(\"" + module + "\","

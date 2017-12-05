@@ -25,6 +25,9 @@ public interface IRouterManagerService {
 
     void navigate(Context context);
 
+    void navigate(Context context,int flag);
+
     void navigate(Activity activity,int requestCode);
+
 
 }

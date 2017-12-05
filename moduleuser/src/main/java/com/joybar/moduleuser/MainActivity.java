@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.joybar.annotation.RouterRegister;
+import com.joybar.annotation.RegisterRouter;
 import com.joybar.librouter.InterceptorCallback;
 import com.joybar.librouter.Router;
 import com.joybar.librouter.Rule;
@@ -21,7 +21,7 @@ import com.joybar.moduleeventbus.data.ShopInfo;
 import com.joybar.moduleuser.application.UserApplication;
 import com.me.obo.routertable.RouterTable$$moduleshop;
 
-@RouterRegister(module = "user", path = "user_main")
+@RegisterRouter(module = "user", path = "user_main")
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
     private Button btnGotoShop;
