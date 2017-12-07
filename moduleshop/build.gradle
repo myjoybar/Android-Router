@@ -83,7 +83,7 @@ dependencies {
     implementation project(':compiler')
     implementation project(':annotation')
     implementation project(':moduleeventbus')
-    implementation project(':autorouterbuilder')
+    implementation project(':routerguider')
 }
 
 preBuild << {

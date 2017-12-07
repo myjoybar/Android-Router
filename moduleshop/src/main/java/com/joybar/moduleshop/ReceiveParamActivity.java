@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.joybar.annotation.RegisterRouter;
 import com.me.obo.annotation.DataParam;
+import com.me.obo.annotation.RegisterLaunch;
 
 @RegisterRouter(module = "shop", path = "shop_receive_param")
 public class ReceiveParamActivity extends AppCompatActivity {
@@ -19,7 +20,8 @@ public class ReceiveParamActivity extends AppCompatActivity {
     public String name;
 
 
-    public static void  launch(Context context){
+    @RegisterLaunch
+    public static void  launch(Context context,String address,long number){
         Intent intent = new Intent(context,ReceiveParamActivity.class);
         context.startActivity(intent);
     }

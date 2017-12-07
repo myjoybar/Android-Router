@@ -9,7 +9,7 @@ import com.joybar.librouter.*;
 import com.joybar.librouter.application.ApplicationService;
 import com.joybar.moduleshop.application.ShopApplication;
 import com.joybar.moduleuser.application.UserReleaseApplication;
-import com.me.obo.autorouter.AutoRouter;
+import com.me.obo.routerguider.RouterGuider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class App extends Application implements ApplicationService {
     @Override
     public void onCreate() {
         super.onCreate();
-        AutoRouter.inject(this);
+        RouterGuider.inject(this);
         initRouterByAnnotation();
         // OR
         // initRouterByDynamic();

@@ -19,7 +19,7 @@ import com.joybar.moduleeventbus.ModuleEvent;
 import com.joybar.moduleeventbus.ModuleEventBus;
 import com.joybar.moduleeventbus.data.ShopInfo;
 import com.joybar.moduleuser.application.UserApplication;
-import com.me.obo.routertable.RouterTable$$moduleshop;
+import com.me.obo.routertable.RouterTable$$Moduleshop;
 
 @RegisterRouter(module = "user", path = "user_main")
 public class MainActivity extends AppCompatActivity {
@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         btnGotoShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouterTable$$moduleshop
-                        .GoToShop_main()
+                RouterTable$$Moduleshop
+                        .LaunchShop_main()
                         .navigate(context);
                 // OR
 //                Router.create()
@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         btnGotoShopWithParam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouterTable$$moduleshop
-                        .GoToShop_receive_param("obo", 23)
+                RouterTable$$Moduleshop
+                        .LaunchShop_receive_param("obo", 23)
                         .navigate(context);
 
                 // OR
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                RouterTable$$moduleshop.GoToShop_finish_with_result()
+                RouterTable$$Moduleshop.LaunchShop_finish_with_result()
                         .navigate(MainActivity
                         .this, 2);;
                 // OR
@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
         btnModuleEventBus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouterTable$$moduleshop
-                        .GoToShop_post_module_data()
+                RouterTable$$Moduleshop
+                        .LaunchShop_post_module_data()
                         .navigate(context);
             }
         });

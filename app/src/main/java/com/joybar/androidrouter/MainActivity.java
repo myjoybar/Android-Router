@@ -3,7 +3,7 @@ package com.joybar.androidrouter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.me.obo.routertable.RouterTable$$moduleuser;
+import com.me.obo.routertable.RouterTable$$Moduleuser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void gotoUserMain() {
-        RouterTable$$moduleuser
-                .GoToUser_main()
+        RouterTable$$Moduleuser
+                .LaunchUser_main()
                 .navigate(MainActivity.this);
         finish();
     }
