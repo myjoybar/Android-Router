@@ -5,10 +5,11 @@ A simple and easy to use Android Router
  - 支持动态注入路由
  - 支持注解方式注入路由
  - 支持Bundle传参
+ - 支持module之间传大容量的数据
  - 支持添加拦截器
  - 支持module单独作为Application编译
  - 支持主app的Application在各个module内调用
- - 路由引导模块：自动生成module的调用方法（ Thank for [Obo](https://github.com/OboBear)）
+ - 路由引导模块：自动生成module的调用方法
  - moduleEventBus：实现module之间通信
  
 ## Installation
@@ -250,7 +251,7 @@ public void testReceiveModuleEventBusData(ShopInfo shopInfo) {
 
 #### 6.  其它
 
-#####1.单独编译Module：
+#####  1.单独编译module：
 step1.  config.gradle
 
 ```java
@@ -259,7 +260,7 @@ step1.  config.gradle
 ```
 step2.  执行 ./gradlew :moduleshop:assembleRelease 或者./gradlew :moduleshop:assembleDebug
 
-#####2.为保证各个module能在主App的relase版本共用Application，以及每个module的application在debug和release状态下调用方法不变，请实现ApplicationService 接口
+#####  2.为保证各个module能在主App的relase版本共用Application，以及每个module的application在debug和release状态下调用方法不变，请实现ApplicationService 接口
 
 
 ## License
