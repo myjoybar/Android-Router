@@ -68,7 +68,7 @@ RouterInject.inject("com.joybar.moduleshop.MainActivity");
 
 ### Step2（生成路由引导模块，可选）
 
-####1. 添加注解（注解@RegisterLaunch只会读取方法参数，而launch方法本身可供模块内部调用）
+#### 1. 添加注解（注解@RegisterLaunch只会读取方法参数，而launch方法本身可供模块内部调用）
 
 ```java
     @RegisterLaunch
@@ -92,7 +92,7 @@ RouterInject.inject("com.joybar.moduleshop.MainActivity");
 
 ```
 
-####2. 在此添加需要生成路由引导模块的module,运行Builder#main
+####  2. 在此添加需要生成路由引导模块的module,运行Builder#main
 
 ```java
 public class Builder {
@@ -106,7 +106,7 @@ public class Builder {
 
 }
 ```
-####3.在routertable路径下生成RouterTable$$Moduleuser和RouterTable$$Moduleshop以及相关的调用方法
+#### 3.在routertable路径下生成RouterTable$$Moduleuser和RouterTable$$Moduleshop以及相关的调用方法
 
 RouterTable$$Moduleshop 为自动生成的类,其方法可供其他Module调用
 

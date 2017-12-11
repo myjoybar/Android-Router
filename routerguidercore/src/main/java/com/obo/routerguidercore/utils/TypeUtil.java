@@ -1,4 +1,4 @@
-package com.obo.autorouterbuildercore.utils;
+package com.obo.routerguidercore.utils;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;

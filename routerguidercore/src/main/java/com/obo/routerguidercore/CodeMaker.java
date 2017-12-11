@@ -1,10 +1,10 @@
-package com.obo.autorouterbuildercore;
+package com.obo.routerguidercore;
 
 
-import com.obo.autorouterbuildercore.utils.AnnotationUtil;
-import com.obo.autorouterbuildercore.utils.FileUtils;
-import com.obo.autorouterbuildercore.utils.StringUtil;
-import com.obo.autorouterbuildercore.utils.TypeUtil;
+import com.obo.routerguidercore.utils.AnnotationUtil;
+import com.obo.routerguidercore.utils.FileUtils;
+import com.obo.routerguidercore.utils.StringUtil;
+import com.obo.routerguidercore.utils.TypeUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;

@@ -1,4 +1,4 @@
-package com.obo.autorouterbuildercore.utils;
+package com.obo.routerguidercore.utils;
 
 import java.util.HashMap;
 import java.util.Map;

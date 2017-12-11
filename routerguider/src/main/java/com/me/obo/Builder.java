@@ -1,7 +1,7 @@
 package com.me.obo;
 
 
-import com.obo.autorouterbuildercore.CodeMaker2;
+import com.obo.routerguidercore.CodeMaker2;
 
 /**
  * Created by joybar on 02/12/2017.
