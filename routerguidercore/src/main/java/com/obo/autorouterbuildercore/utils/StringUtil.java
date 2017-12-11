@@ -1,7 +1,9 @@
 package com.obo.autorouterbuildercore.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +53,7 @@ public class StringUtil {
         return paramMap;
     }
 
-    public static String getParamsStrByAnnotation(String fileString,String annotationName){
+    public static String getFirstParamsStrByAnnotation(String fileString, String annotationName){
 
         int index = fileString.indexOf(annotationName);
         StringBuffer sb = new StringBuffer();
@@ -75,22 +77,29 @@ public class StringUtil {
     }
 
 
-    public static Map<String, String> getParamMapByMethodParamsStr(String paramsStr) {
-        Map<String, String> paramMap = new HashMap<>();
-        String[] paramArray = paramsStr.toString().split(",");
-        for (int i = 0; i < paramArray.length; i++) {
-            String paramStr = paramArray[i];
-            String[] param = paramStr.toString().split(" ");
-            for (int k = 0; k < 2; k++) {
-                paramMap.put(param[0].trim(), param[1].trim());
+    public static List<Map<String, String>> getParamMapListByMethodParamsStr(String fileStr, String annotationStr) {
+        int startPosition = 0;
+        int currentIndex = -1;
+        List<Map<String, String>> list = new ArrayList<>();
+
+        while ((currentIndex = fileStr.indexOf(annotationStr, startPosition))!= -1) {
+            String paramsStr = StringUtil.getFirstParamsStrByAnnotation(fileStr,annotationStr);
+            Map<String, String> paramMap = new HashMap<>();
+            String[] paramArray = paramsStr.toString().split(",");
+            for (int i = 0; i < paramArray.length; i++) {
+                String paramStr = paramArray[i];
+                String[] param = paramStr.toString().split(" ");
+                for (int k = 0; k < 2; k++) {
+                    paramMap.put(param[0].trim(), param[1].trim());
+                }
             }
+            list.add(paramMap);
+            System.out.println("paramsStr = " + paramsStr);
+            int startPositionNew =currentIndex+ paramsStr.length()+2;
+            fileStr = fileStr.substring(startPositionNew,fileStr.length());
+
         }
-        Iterator<Map.Entry<String, String>> it = paramMap.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String> entry = it.next();
-            System.out.println("key= " + entry.getKey() + " ,value= " + entry.getValue());
-        }
-        return paramMap;
+        return list;
     }
 
     public static Map<String, String> getParamMapByAnnotationParamsStr(String paramsStr) {

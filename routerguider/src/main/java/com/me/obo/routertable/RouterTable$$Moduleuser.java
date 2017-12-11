@@ -4,7 +4,7 @@ import com.me.obo.routerguider.RouterGuider;
 
 public final class RouterTable$$Moduleuser {
   public static RouterGuider launchMain() {
-    // This class was generated automatically 2017-12-11 15:30:08
+    // This class was generated automatically 2017-12-11 18:23:03
     // module=user,path=main
     RouterGuider routerGuider =  new RouterGuider("user", "main");
     return routerGuider;

@@ -1,7 +1,6 @@
 package com.obo.autorouterbuildercore;
 
 
-import com.obo.autorouterbuildercore.utils.AnnotationUtil;
 import com.obo.autorouterbuildercore.utils.FileUtils;
 import com.obo.autorouterbuildercore.utils.StringUtil;
 import com.obo.autorouterbuildercore.utils.TypeUtil;
@@ -17,7 +16,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -77,22 +75,23 @@ public class CodeMaker2 {
 
 	static void decoString(String fileString, TypeSpec.Builder builder) {
 		if (fileString.contains(ANNOTATION_ROUTER)) {
-			String paramRouterStr = StringUtil.getParamsStrByAnnotation(fileString, ANNOTATION_ROUTER);
+			String paramRouterStr = StringUtil.getFirstParamsStrByAnnotation(fileString, ANNOTATION_ROUTER);
 			Map<String, String> paramRouterMap = StringUtil.getParamMapByAnnotationParamsStr(paramRouterStr);
 			String module = paramRouterMap.get(PARAM_MODULE);
 			String path = paramRouterMap.get(PARAM_PATH);
 			System.out.println("module = " + module);
 			System.out.println("path = " + path);
-			Map<String, String> paramMap = new HashMap<>();
-			if (fileString.contains(ANNOTATION_LAUNCH)) {
-				String paramsStr = StringUtil.getParamsStrByAnnotation(fileString,ANNOTATION_LAUNCH);
-			    paramMap = StringUtil.getParamMapByMethodParamsStr(paramsStr);
+			List<Map<String, String>>  list = StringUtil.getParamMapListByMethodParamsStr(fileString,ANNOTATION_LAUNCH);
+			if(null==list ||list.size()==0){
+				MethodSpec methodSpec = getMethodSpecWith(module,path,null);
+				builder.addMethod(methodSpec);
+			}else{
+				for (Map<String, String> paramMap:list){
+					MethodSpec methodSpec = getMethodSpecWith(module,path,paramMap);
+					builder.addMethod(methodSpec);
+				}
 			}
-			MethodSpec methodSpec = getMethodSpecWith(module,path,paramMap);
-			builder.addMethod(methodSpec);
 		}
-
-
 
 	}
 
@@ -110,22 +109,23 @@ public class CodeMaker2 {
 		methodBuilder.addStatement("$T $N =  new $T($S, $S)", classRouterGuider, LOCAL_ROUTE_NAME,
 				classRouterGuider, module, path);
 
-		Iterator<Map.Entry<String, String>> it = paramMap.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry<String, String> entry = it.next();
+		if(null!=paramMap){
+			Iterator<Map.Entry<String, String>> it = paramMap.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<String, String> entry = it.next();
+				String key = entry.getKey();
+				String value = entry.getValue();
+				TypeName type = TypeUtil.getTypeNameWithStr(key);
+				System.out.println("--- ");
+				System.out.println("key = " + key+",value = " + value+",type = " + type);
+				if(null == type){
+					continue;
+				}
+				methodBuilder.addParameter(type, value);
+				methodBuilder.addStatement("$N.with" + "" +  StringUtil.getTypeWithFirstUpperCase(key) + "($S, $N)", LOCAL_ROUTE_NAME, value, value);
 
-			String key = entry.getKey();
-			String value = entry.getValue();
-			TypeName type = TypeUtil.getTypeNameWithStr(key);
-			System.out.println("key = " + key+",value = " + value+",type = " + type);
-			if(null == type){
-				continue;
 			}
-			methodBuilder.addParameter(type, value);
-			methodBuilder.addStatement("$N.with" + "" +  StringUtil.getTypeWithFirstUpperCase(key) + "($S, $N)", LOCAL_ROUTE_NAME, value, value);
-
 		}
-
 		methodBuilder.addStatement("return $N", LOCAL_ROUTE_NAME);
 		return methodBuilder.build();
 
