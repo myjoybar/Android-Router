@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void gotoUserMain() {
         RouterTable$$Moduleuser
-                .LaunchUser_main()
+                .launchMain()
                 .navigate(MainActivity.this);
         finish();
     }

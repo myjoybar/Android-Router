@@ -59,15 +59,15 @@ public class App extends Application implements ApplicationService {
             @Override
             public List<Rule> buildRuleList() {
                 List<Rule> ruleList = new ArrayList<>();
-                ruleList.add(new Rule("user", "user_main", com.joybar.moduleuser.MainActivity
+                ruleList.add(new Rule("user", "main", com.joybar.moduleuser.MainActivity
                         .class));
-                ruleList.add(new Rule("shop", "shop_main", com.joybar.moduleshop.MainActivity
+                ruleList.add(new Rule("shop", "main", com.joybar.moduleshop.MainActivity
                         .class));
-                ruleList.add(new Rule("shop", "shop_receive_param", com.joybar.moduleshop
+                ruleList.add(new Rule("shop", "receive_param", com.joybar.moduleshop
                         .ReceiveParamActivity.class));
-                ruleList.add(new Rule("shop", "shop_receive_param", com.joybar.moduleshop
+                ruleList.add(new Rule("shop", "receive_param", com.joybar.moduleshop
                         .FinishWithResultActivity.class));
-                ruleList.add(new Rule("shop", "shop_post_module_data", com.joybar.moduleshop
+                ruleList.add(new Rule("shop", "post_module_data", com.joybar.moduleshop
                         .PostModuleDataActivity.class));
                 return ruleList;
             }

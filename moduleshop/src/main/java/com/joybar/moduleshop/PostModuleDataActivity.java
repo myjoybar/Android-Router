@@ -8,7 +8,7 @@ import com.joybar.annotation.RegisterRouter;
 import com.joybar.moduleeventbus.ModuleEventBus;
 import com.joybar.moduleeventbus.data.ShopInfo;
 
-@RegisterRouter(module = "shop", path = "shop_post_module_data")
+@RegisterRouter(module = "shop", path = "post_module_data")
 public class PostModuleDataActivity extends AppCompatActivity {
     private static final String TAG = "PostDataActivity";
 

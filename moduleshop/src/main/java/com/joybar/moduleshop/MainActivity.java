@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.joybar.annotation.RegisterRouter;
 import com.joybar.moduleshop.application.ShopApplication;
 
-@RegisterRouter(module = "shop", path = "shop_main")
+@RegisterRouter(module = "shop", path = "main")
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 

@@ -83,39 +83,46 @@ public class RouterService implements IRouterManagerService {
 
     @Override
     public IRouterManagerService withInterceptorCallback(InterceptorCallback interceptorCallback) {
-        routerRequest.setInterceptorCallback(interceptorCallback);
+        if(null!=interceptorCallback){
+            routerRequest.setInterceptorCallback(interceptorCallback);
+        }
         return this;
     }
 
     @Override
     public IRouterManagerService addInterceptor(RouteInterceptor routeInterceptor) {
-        routeInterceptors.add(routeInterceptor);
+        if(null!=routeInterceptor){
+            routeInterceptors.add(routeInterceptor);
+        }
         return this;
     }
 
     @Override
     public boolean isIntercepted() {
-        for (RouteInterceptor interceptor : routeInterceptors) {
-            if (interceptor.isIntercepted(routerRequest)) {
-                InterceptorCallback interceptorCallback = routerRequest.getInterceptorCallback();
-                if (null != interceptorCallback) {
-                    interceptorCallback.onIntercept("this router request is intercepted");
+        if(null!=routeInterceptors&&routeInterceptors.size()!=0){
+            for (RouteInterceptor interceptor : routeInterceptors) {
+                if (interceptor.isIntercepted(routerRequest)) {
+                    InterceptorCallback interceptorCallback = routerRequest.getInterceptorCallback();
+                    if (null != interceptorCallback) {
+                        interceptorCallback.onIntercept("this router request is intercepted");
+                    }
+                    return true;
                 }
-                return true;
             }
-        }
-        InterceptorCallback interceptorCallback = routerRequest.getInterceptorCallback();
-        if (null != interceptorCallback) {
-            interceptorCallback.onContinue();
+            InterceptorCallback interceptorCallback = routerRequest.getInterceptorCallback();
+            if (null != interceptorCallback) {
+                interceptorCallback.onContinue();
+            }
         }
         return false;
     }
 
     @Override
     public IRouterManagerService withExtra(Bundle bundle) {
-        routerRequest.setBundle(bundle);
+        if(null!=bundle){
+            routerRequest.setBundle(bundle);
+        }
         return this;
     }
-
 
 }

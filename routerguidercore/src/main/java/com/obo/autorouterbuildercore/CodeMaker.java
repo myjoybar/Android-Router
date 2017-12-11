@@ -32,6 +32,7 @@ public class CodeMaker {
     private static final String ROUTER_TABLE_PKN = "com.me.obo.routertable";
     private static final String FILE_PATH = "/routerguider/src/main/java";
     private static final String LOCAL_ROUTE_NAME = "routerGuider";
+    private static final String METHOD_PREFIX = "launch";
 
 //    public static void main(String []args) {
 //        System.out.println("args.length = " + args.length);
@@ -105,8 +106,8 @@ public class CodeMaker {
         ClassName classAutoRouter = ClassName.get("com.me.obo.routerguider", "RouterGuider");
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("Launch" + StringUtil
-                .getTypeWithFirstUpperCase(path)).addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+        String methodName = METHOD_PREFIX+StringUtil.upperCaseFirst(StringUtil.underlineToCamel(path));
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .addComment("This class was generated automatically "+sdf.format(d))
                 .addComment("module="+module + ",path=" + path)
                 .returns(classAutoRouter);

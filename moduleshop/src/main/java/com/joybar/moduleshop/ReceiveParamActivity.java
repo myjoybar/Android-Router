@@ -10,7 +10,7 @@ import com.joybar.annotation.RegisterRouter;
 import com.me.obo.annotation.DataParam;
 import com.me.obo.annotation.RegisterLaunch;
 
-@RegisterRouter(module = "shop", path = "shop_receive_param")
+@RegisterRouter(module = "shop", path = "receive_param")
 public class ReceiveParamActivity extends AppCompatActivity {
 
     private TextView tvDes;
@@ -18,10 +18,11 @@ public class ReceiveParamActivity extends AppCompatActivity {
     public int id;
     @DataParam
     public String name;
-
+    @DataParam
+    public String address;
 
     @RegisterLaunch
-    public static void  launch(Context context,String address,long number){
+    public static void launch(Context context,String name,int id){
         Intent intent = new Intent(context,ReceiveParamActivity.class);
         context.startActivity(intent);
     }

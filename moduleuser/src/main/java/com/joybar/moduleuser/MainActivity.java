@@ -21,7 +21,7 @@ import com.joybar.moduleeventbus.data.ShopInfo;
 import com.joybar.moduleuser.application.UserApplication;
 import com.me.obo.routertable.RouterTable$$Moduleshop;
 
-@RegisterRouter(module = "user", path = "user_main")
+@RegisterRouter(module = "user", path = "main")
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
     private Button btnGotoShop;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RouterTable$$Moduleshop
-                        .LaunchShop_main()
+                        .launchMain()
                         .navigate(context);
                 // OR
 //                Router.create()
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RouterTable$$Moduleshop
-                        .LaunchShop_receive_param("obo", 23)
+                        .launchReceiveParam("obo", 23l)
                         .navigate(context);
 
                 // OR
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                RouterTable$$Moduleshop.LaunchShop_finish_with_result()
+                RouterTable$$Moduleshop.launchFinishWithResult()
                         .navigate(MainActivity
                         .this, 2);;
                 // OR
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Router.create()
-                        .buildRule(new Rule("shop", "shop_main"))
+                        .buildRule(new Rule("shop", "main"))
                         .addInterceptor(new TestInterceptor()).withInterceptorCallback(new InterceptorCallback() {
                     @Override
                     public void onIntercept(Object result) {
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RouterTable$$Moduleshop
-                        .LaunchShop_post_module_data()
+                        .launchPostModuleData()
                         .navigate(context);
             }
         });

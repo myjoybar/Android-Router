@@ -15,7 +15,13 @@ public class StringUtil {
         return (availableString.charAt(0) + "").toUpperCase()
                 + availableString.substring(1).toLowerCase();
     }
-
+    public static String upperCaseFirst(String str) {
+        char[] ch = str.toCharArray();
+        if (ch[0] >= 'a' && ch[0] <= 'z') {
+            ch[0] = (char) (ch[0] - 32);
+        }
+        return new String(ch);
+    }
 
     public static String getGroupName(String path) {
         String[] pathSplit = path.split("/");
@@ -104,6 +110,25 @@ public class StringUtil {
             System.out.println("key= " + entry.getKey() + " value= " + entry.getValue());
         }
         return paramMap;
+    }
+
+    public static String underlineToCamel(String param) {
+        if (param == null || "".equals(param.trim())) {
+            return "";
+        }
+        int len = param.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = param.charAt(i);
+            if (c == '_') {
+                if (++i < len) {
+                    sb.append(Character.toUpperCase(param.charAt(i)));
+                }
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 
 }
