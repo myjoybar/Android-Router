@@ -47,16 +47,13 @@ public class RouterProcessor extends AbstractProcessor {
         for (TypeElement element : annotations) {
             if (element.getQualifiedName().toString().equals(RegisterRouter.class.getCanonicalName())) {
               //  processRouterMap1(element, roundEnv);
-
                 try {
                     processRouterMap2(element, roundEnv);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         }
-
         return false;
     }
 
@@ -79,10 +76,9 @@ public class RouterProcessor extends AbstractProcessor {
             if (!(e instanceof TypeElement)) {
                 continue;
             }
-            TypeElement typeElement = (TypeElement) e;//代表被注解的元素
+            TypeElement typeElement = (TypeElement) e;
             String module = typeElement.getAnnotation(RegisterRouter.class).module();
             String path = typeElement.getAnnotation(RegisterRouter.class).path();
-            // Class的完整路径
             String classFullName = typeElement.getQualifiedName().toString();
             System.out.println("module=" + module);
             System.out.println("path=" + path);
@@ -92,10 +88,7 @@ public class RouterProcessor extends AbstractProcessor {
             }
         }
         writeComponentFile();
-
-
     }
-
 
     private void writeComponentFile() {
 
@@ -166,14 +159,11 @@ public class RouterProcessor extends AbstractProcessor {
                     .addParameter(String[].class, "args")
                     .addStatement("$T.out.println($S)", System.class, "Hello, JavaPoet!")
                     .build();
-            MethodSpec computeRange = computeRange("multiply10to20", 10, 20, "*");
-
 
             MethodSpec addRouter = computeAddRouter(Config.ROUTER_MANAGER_METHOD_NAME,module, path, typeElement.getQualifiedName().toString());
             TypeSpec routerManger = TypeSpec.classBuilder(fullName.replace(".", "_") + Config.ROUTER_MANAGER_CLASS_NAME_SUFFIX)
                     .addModifiers(Modifier.PUBLIC)
                     .addMethod(main)
-                    .addMethod(computeRange)
                     .addMethod(addRouter)
                     .build();
             JavaFile javaFile = JavaFile.builder(Config.ROUTER_MANAGER_PKN, routerManger)
@@ -182,18 +172,6 @@ public class RouterProcessor extends AbstractProcessor {
 
         }
 
-    }
-
-
-    private MethodSpec computeRange(String name, int from, int to, String op) {
-        return MethodSpec.methodBuilder(name)
-                .returns(int.class)
-                .addStatement("int result = 0")
-                .beginControlFlow("for (int i = " + from + "; i < " + to + "; i++)")
-                .addStatement("result = result " + op + " i")
-                .endControlFlow()
-                .addStatement("return result")
-                .build();
     }
 
     private MethodSpec computeAddRouter(String methodName, String module, String path, String classFullName) {
@@ -213,9 +191,6 @@ public class RouterProcessor extends AbstractProcessor {
                 .build();
 
     }
-
-
-
 
 
     public static class RouterModel {

@@ -24,6 +24,9 @@ public class ReceiveParamActivity extends AppCompatActivity {
     @RegisterLaunch
     public static void launch(Context context,String name,int id){
         Intent intent = new Intent(context,ReceiveParamActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id",id);
+        bundle.putString("name",name);
         context.startActivity(intent);
     }
 

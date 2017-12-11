@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         .navigate(context);
                 // OR
 //                Router.create()
-//                        .buildRule(new Rule("shop", "shop_main"))
+//                        .buildRule(new Rule("shop", "main"))
 //                        .navigate(context);
 
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RouterTable$$Moduleshop
-                        .launchReceiveParam("obo", 23l)
+                        .launchReceiveParam("obo", 25)
                         .navigate(context);
 
                 // OR
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 //                bundle.putInt("id", 123);
 //                bundle.putString("name", "obo");
 //                Router.create()
-//                        .buildRule(new Rule("shop", "shop_main"))
+//                        .buildRule(new Rule("shop", "receive_param"))
 //                        .withExtra(bundle)
 //                        .navigate(context);
             }
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         .this, 2);;
                 // OR
 //                Router.create()
-//                        .buildRule(new Rule("shop", "shop_finish_with_result"))
+//                        .buildRule(new Rule("shop", "finish_with_result"))
 //                        .navigate(MainActivity
 //                        .this, 2);
 

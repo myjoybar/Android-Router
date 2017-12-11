@@ -7,7 +7,7 @@ version = "1.0.6"
 def siteUrl = 'https://github.com/myjoybar/Android-Router'
 def issuesUrl = 'https://github.com/myjoybar/Android-Router/issues'
 def gitUrl = 'https://github.com/myjoybar/Android-Router.git'
-def ARTIFACT_ID = 'librouter'
+def ARTIFACT_ID = 'routerguider'
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -38,7 +38,7 @@ install {
             project {
                 packaging 'aar'
                 // Add your description here
-                description 'A simple and easy to use Android Router'
+                description 'generate called router methods automatically'
                 name ARTIFACT_ID
                 url siteUrl
                 // Set your license
@@ -82,6 +82,9 @@ bintray {
         publish = true
     }
 }
+
+
+
 //./gradlew install
 //./gradlew bintrayUpload
 

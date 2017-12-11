@@ -38,7 +38,7 @@ public class App extends Application implements ApplicationService {
     public void onCreate() {
         super.onCreate();
         RouterGuider.inject(this);
-        initRouterByAnnotation();
+         initRouterByAnnotation();
         // OR
         // initRouterByDynamic();
 
@@ -65,14 +65,12 @@ public class App extends Application implements ApplicationService {
                         .class));
                 ruleList.add(new Rule("shop", "receive_param", com.joybar.moduleshop
                         .ReceiveParamActivity.class));
-                ruleList.add(new Rule("shop", "receive_param", com.joybar.moduleshop
+                ruleList.add(new Rule("shop", "finish_with_result", com.joybar.moduleshop
                         .FinishWithResultActivity.class));
                 ruleList.add(new Rule("shop", "post_module_data", com.joybar.moduleshop
                         .PostModuleDataActivity.class));
                 return ruleList;
             }
-
-
         });
     }
 
