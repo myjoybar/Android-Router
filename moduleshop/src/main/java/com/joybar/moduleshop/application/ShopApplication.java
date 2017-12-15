@@ -2,7 +2,7 @@ package com.joybar.moduleshop.application;
 
 import android.app.Application;
 
-import com.joybar.librouter.application.ApplicationService;
+import com.joybar.modulebase.application.ApplicationService;
 import com.joybar.moduleshop.BuildConfig;
 
 /**

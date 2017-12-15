@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
-import com.joybar.librouter.application.ApplicationService;
+import com.joybar.modulebase.application.ApplicationService;
 
 /**
  * Created by joybar on 2017/12/4.

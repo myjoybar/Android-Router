@@ -28,10 +28,10 @@ ext {
             versionName:'"3.0.3"'
     ]
 
-    isDebugType = false
+    isDebugType = false //module
     isPrintLog= false
 
 }
-project.ext.set("is_debug_type",  "false")
+project.ext.set("is_debug_type",  "false") //主APP
 project.ext.set("is_print_log", "false")
 

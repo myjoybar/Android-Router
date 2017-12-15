@@ -5,8 +5,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.joybar.compiler.RouterInject;
-import com.joybar.librouter.*;
-import com.joybar.librouter.application.ApplicationService;
+import com.joybar.librouter.Router;
+import com.joybar.librouter.Rule;
+import com.joybar.modulebase.application.ApplicationService;
 import com.joybar.moduleshop.application.ShopApplication;
 import com.joybar.moduleuser.application.UserReleaseApplication;
 import com.me.obo.routerguider.RouterGuider;
