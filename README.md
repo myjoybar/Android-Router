@@ -2,6 +2,8 @@
 一个使用简单方便的Android router框架，
 一个完整的Android模块化开发示例
 
+ ![image](https://github.com/myjoybar/Android-Router/blob/master/screenshots/screenshot.jpeg)
+
 ## Features
  - 支持动态注入路由
  - 支持注解方式注入路由
