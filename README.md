@@ -10,7 +10,7 @@
  - 支持添加拦截器
  - 支持module单独作为Application编译
  - 支持主app的Application在各个module内调用
- - 路由引导模块：自动生成module的调用方法
+ - 路由引导模块：自动生成module的调用方法 （ Thank for [Obo](https://github.com/OboBear)）
  - moduleEventBus：实现module之间通信
  
 ## Installation
