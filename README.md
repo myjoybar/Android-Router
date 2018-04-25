@@ -4,7 +4,7 @@
 
  ![image](https://github.com/myjoybar/Android-Router/blob/master/screenshots/screenshot.jpg)
 
- [Blog地址](https://blog.csdn.net/yalinfendou/article/details/78822749)）
+ [Blog地址](https://blog.csdn.net/yalinfendou/article/details/78822749)
 ## Features
  - 支持动态注入路由
  - 支持注解方式注入路由
