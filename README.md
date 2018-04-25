@@ -4,6 +4,7 @@
 
  ![image](https://github.com/myjoybar/Android-Router/blob/master/screenshots/screenshot.jpg)
 
+ [Blog地址](https://blog.csdn.net/yalinfendou/article/details/78822749)）
 ## Features
  - 支持动态注入路由
  - 支持注解方式注入路由
@@ -13,7 +14,7 @@
  - 支持module单独作为Application编译
  - 支持主app的Application在各个module内调用
  - 路由引导模块：自动生成module的调用方法 （ Thank for [Obo](https://github.com/OboBear)）
- - moduleEventBus：实现module之间通信
+
  
 ## Installation
 ### Gradle Dependency
@@ -24,9 +25,15 @@ compile 'com.joybar.router:compiler:1.0.7' //注解处理器来在编译期通�
 compile 'com.joybar.router:routerguider:1.0.7'//路由引导模块，自动生module的调用方法
 ```
 
+## Structure
+- app： 一个空壳，本身不实现任何业务逻辑，最终打包成完整的release APK 
+- moduleshop：实现shop相关的业务逻辑，可单独编译成APK
+- moduleuser：实现user相关的业务逻辑，可单独编译成APK，和其它module通过router通信
+- routerguidercore：为各个module生成自动调用的方法
+- moduleEventBus：实现module之间通信
 
-
-
+ ![image](https://github.com/myjoybar/Android-Router/blob/master/screenshots/screenshot1.png)
+ 
 ## Sample Usage
 
 ### Step1（初始化）
