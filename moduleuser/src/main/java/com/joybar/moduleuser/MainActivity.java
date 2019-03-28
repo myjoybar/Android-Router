@@ -16,6 +16,10 @@ import com.joybar.librouter.routercore.Router;
 import com.joybar.librouter.routercore.Rule;
 import com.joybar.librouter.guider.routertable.RouterTable$$Moduleshop;
 import com.joybar.librouter.routercore.interceptor.TestInterceptor;
+import com.joybar.librouter.routerservice.RouterServiceManager;
+import com.joybar.librouter.routerservice.exception.RouterServiceException;
+import com.joybar.librouter.routerservice.inters.IBaseService;
+import com.joybar.librouter.routerservice.inters.IServiceCallBack;
 import com.joybar.moduleuser.application.UserApplication;
 
 @RegisterRouter(module = "user", path = "main")
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnModuleEventBus;
     private TextView tvDes;
     private Context context;
+    private View btnSyncInvokeComponent;
+    private View btnAsyncInvokeComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         btnGotoShopWithInterceptor = findViewById(R.id.btn_with_interceptor);
         btnModuleEventBus = findViewById(R.id.btn_module_event_bus);
         tvDes = findViewById(R.id.tv_des);
+        btnSyncInvokeComponent = findViewById(R.id.btn_component_invoke_sync);
+        btnAsyncInvokeComponent = findViewById(R.id.btn_component_invoke_async);
     }
 
 
@@ -130,6 +138,43 @@ public class MainActivity extends AppCompatActivity {
                 RouterTable$$Moduleshop
                         .launchPostModuleData()
                         .navigate(context);
+            }
+        });
+
+
+        btnSyncInvokeComponent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                IBaseService service = RouterServiceManager.getInstance().getService("DTShopService");
+                String result = (String) service.execute("testReturn");
+
+                Toast.makeText(context, "invoke from another component synchronous result is " + result,Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnAsyncInvokeComponent.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                IBaseService service = RouterServiceManager.getInstance().getService("DTShopService");
+
+                service.executeAsync("testReturnWithCallBack", new IServiceCallBack() {
+
+                    @Override
+                    public void onSuccess(Object result) {
+
+                        Toast.makeText(context, "invoke from another component asynchronous result is " + result,Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onFailure(RouterServiceException routerServiceException) {
+
+                    }
+                });
+
             }
         });
     }
