@@ -10,6 +10,7 @@ import com.joybar.librouter.routercore.Router;
 import com.joybar.librouter.routercore.Rule;
 import com.joybar.librouter.application.ApplicationService;
 import com.joybar.librouter.guider.routerguider.RouterGuider;
+import com.joybar.librouter.routerservice.RouterServiceManager;
 import com.joybar.moduleshop.application.ShopApplication;
 import com.joybar.moduleuser.application.UserReleaseApplication;
 
@@ -44,6 +45,8 @@ public class App extends Application implements ApplicationService {
 		// OR
 		// initRouterByDynamic();
 		loadModuleApplicationService();
+
+		RouterServiceManager.getInstance().init(this);
 	}
 
 
