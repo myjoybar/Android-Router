@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.joybar.annotation.RegisterRouter;
-import com.me.obo.annotation.DataParam;
-import com.me.obo.annotation.RegisterLaunch;
+import com.joybar.annotation.router.annotation.RegisterRouter;
+import com.joybar.librouter.guider.annotation.DataParam;
+import com.joybar.librouter.guider.annotation.RegisterLaunch;
 
 @RegisterRouter(module = "shop", path = "receive_param")
 public class ReceiveParamActivity extends AppCompatActivity {

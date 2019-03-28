@@ -3,7 +3,7 @@ package com.joybar.moduleshop;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.joybar.annotation.RegisterRouter;
+import com.joybar.annotation.router.annotation.RegisterRouter;
 import com.joybar.moduleshop.application.ShopApplication;
 
 @RegisterRouter(module = "shop", path = "main")

@@ -10,16 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.joybar.annotation.RegisterRouter;
-import com.joybar.librouter.InterceptorCallback;
-import com.joybar.librouter.Router;
-import com.joybar.librouter.Rule;
-import com.joybar.librouter.interceptor.TestInterceptor;
-import com.joybar.moduleeventbus.ModuleEvent;
-import com.joybar.moduleeventbus.ModuleEventBus;
-import com.joybar.moduleeventbus.data.ShopInfo;
+import com.joybar.annotation.router.annotation.RegisterRouter;
+import com.joybar.librouter.routercore.InterceptorCallback;
+import com.joybar.librouter.routercore.Router;
+import com.joybar.librouter.routercore.Rule;
+import com.joybar.librouter.guider.routertable.RouterTable$$Moduleshop;
+import com.joybar.librouter.routercore.interceptor.TestInterceptor;
 import com.joybar.moduleuser.application.UserApplication;
-import com.me.obo.routertable.RouterTable$$Moduleshop;
 
 @RegisterRouter(module = "user", path = "main")
 public class MainActivity extends AppCompatActivity {
@@ -39,20 +36,8 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         initView();
         initListener();
-        ModuleEventBus.getInstance().register(this);
         UserApplication.getInstance().getApplication();
 
-    }
-
-    @ModuleEvent()
-    public void testReceiveModuleEventBusData(String msg) {
-        Toast.makeText(this, "I am user main activity,receive data from shop,msg=" + msg, Toast.LENGTH_LONG).show();
-    }
-
-    @ModuleEvent()
-    public void testReceiveModuleEventBusData(ShopInfo shopInfo) {
-        Toast.makeText(this, "I am user main activity,receive data from shop,msg=" + shopInfo.toString(), Toast
-                .LENGTH_LONG).show();
     }
 
     private void initView() {
@@ -66,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initListener() {
-
         btnGotoShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
                 RouterTable$$Moduleshop.launchFinishWithResult()
                         .navigate(MainActivity
-                        .this, 2);;
+                        .this, 2);
+
                 // OR
 //                Router.create()
 //                        .buildRule(new Rule("shop", "finish_with_result"))
@@ -170,6 +155,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-        ModuleEventBus.getInstance().unregister(this);
     }
 }

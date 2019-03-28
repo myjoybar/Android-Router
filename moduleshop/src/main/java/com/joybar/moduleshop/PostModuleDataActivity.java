@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.joybar.annotation.RegisterRouter;
-import com.joybar.moduleeventbus.ModuleEventBus;
-import com.joybar.moduleeventbus.data.ShopInfo;
+import com.joybar.annotation.router.annotation.RegisterRouter;
 
 @RegisterRouter(module = "shop", path = "post_module_data")
 public class PostModuleDataActivity extends AppCompatActivity {
@@ -19,13 +17,13 @@ public class PostModuleDataActivity extends AppCompatActivity {
         findViewById(R.id.btn_post_module_data1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ModuleEventBus.getInstance().post("I am form shop");
+               // ModuleEventBus.getInstance().post("I am form shop");
             }
         });
         findViewById(R.id.btn_post_module_data2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ModuleEventBus.getInstance().post(new ShopInfo("KFC", "Hangzhou Xihu"));
+               // ModuleEventBus.getInstance().post(new ShopInfo("KFC", "Hangzhou Xihu"));
             }
         });
 
