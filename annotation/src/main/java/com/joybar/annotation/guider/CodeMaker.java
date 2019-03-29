@@ -40,6 +40,9 @@ public class CodeMaker {
 //        autoGenerateModuleMethodName("module_shop");
 //    }
 
+	private static final String ROUTER_GUIDER_CLASS_PREFIX = "RouterTable$$";
+	private static final String ROUTER_GUIDER_CLASS_FILE_PATH = "/src/main/java/";
+
 
 	public static void autoGenerateModuleMethodName(String moduleName, String filePath, String routerGuiderPckName) {
 
@@ -49,9 +52,9 @@ public class CodeMaker {
 		FILE_PATH = filePath;
 		ROUTER_GUIDER_PKN = routerGuiderPckName;
 
-		String classBuilderName = "RouterTable$$" + StringUtil.getTypeWithFirstUpperCase(moduleName);
+		String classBuilderName = ROUTER_GUIDER_CLASS_PREFIX+ StringUtil.getTypeWithFirstUpperCase(moduleName);
 		TypeSpec.Builder classBuilder = TypeSpec.classBuilder(classBuilderName).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
-		File workFile = new File(moduleName + "/src/main/java/");
+		File workFile = new File(moduleName +ROUTER_GUIDER_CLASS_FILE_PATH);
 		List<File> files = FileUtils.getAllFiles(workFile);
 		System.out.println("files.size() = " + files.size());
 
@@ -84,9 +87,9 @@ public class CodeMaker {
 
 		System.out.println("==================moduleName=" + moduleName + "==================");
 
-		String classBuilderName = "RouterTable$$" + StringUtil.getTypeWithFirstUpperCase(moduleName);
+		String classBuilderName = ROUTER_GUIDER_CLASS_PREFIX+ StringUtil.getTypeWithFirstUpperCase(moduleName);
 		TypeSpec.Builder classBuilder = TypeSpec.classBuilder(classBuilderName).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
-		File workFile = new File(moduleName + "/src/main/java/");
+		File workFile = new File(moduleName + ROUTER_GUIDER_CLASS_FILE_PATH);
 		List<File> files = FileUtils.getAllFiles(workFile);
 		System.out.println("files.size() = " + files.size());
 

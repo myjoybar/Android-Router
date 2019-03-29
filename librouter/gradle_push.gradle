@@ -2,7 +2,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.joybar.router"
-version = "1.1.5"
+version = "1.1.6"
 
 def siteUrl = 'https://github.com/myjoybar/Android-Router'
 def issuesUrl = 'https://github.com/myjoybar/Android-Router/issues'
