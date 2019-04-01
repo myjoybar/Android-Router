@@ -11,43 +11,36 @@ import java.util.HashMap;
 public class RouterServiceManager {
 
 
-	private Context context;
-	private HashMap<String, IBaseService> serviceMap = new HashMap<>();
+	private static final String ROUTER_SERVICE_NAME_PREFIX = "RS";
+	private Context mContext;
+	private HashMap<String, IBaseService> serviceTable = new HashMap<>();
+
 
 	private static class RouterServiceManagerHolder {
 		private static RouterServiceManager INSTANCE = new RouterServiceManager();
 	}
 
 	public static RouterServiceManager getInstance() {
-
 		return RouterServiceManagerHolder.INSTANCE;
 
 	}
 
 	public void init(Context context) {
-
-		this.context = context;
-
+		this.mContext = context;
 		registerAllModuleService();
 	}
-
 
 
 	private void registerAllModuleService() {
 
 		try {
-			ApplicationInfo applicationInfo = context.getApplicationContext().getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-
+			ApplicationInfo applicationInfo = mContext.getApplicationContext().getPackageManager().getApplicationInfo(mContext.getPackageName(),
+					PackageManager.GET_META_DATA);
 			for (String key : applicationInfo.metaData.keySet()) {
-
-				if (key.startsWith("DT")) {
-
+				if (key.startsWith(ROUTER_SERVICE_NAME_PREFIX)) {
 					String componentClassName = applicationInfo.metaData.get(key).toString();
-
 					IBaseService baseService = (IBaseService) Class.forName(componentClassName).newInstance();
-
-
-					serviceMap.put(key, baseService);
+					serviceTable.put(key, baseService);
 				}
 			}
 		} catch (PackageManager.NameNotFoundException e) {
@@ -63,9 +56,15 @@ public class RouterServiceManager {
 	}
 
 
-	public IBaseService getService(String serviceName) {
+	public IBaseService getService(String serviceName){
+		if(serviceTable.containsKey(serviceName)){
+			return serviceTable.get(serviceName);
+		}else{
+			throw new IllegalStateException(String.format("%s is not register in serviceTable，have you declared it in AndroidManifest or call the " +
+							"registerAllModuleService method in your application",
+					serviceName));
+		}
 
-		return serviceMap.get(serviceName);
 	}
 
 

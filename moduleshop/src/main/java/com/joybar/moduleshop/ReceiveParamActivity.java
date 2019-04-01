@@ -56,7 +56,7 @@ public class ReceiveParamActivity extends AppCompatActivity {
         Bundle mExtras = getIntent().getExtras();
         int id = mExtras.getInt("id", 0);
         String name = mExtras.getString("name", "");
-        tvDes.setText(tvDes.getText().toString()+"\n"+"Receive data :ID:" + id + "," + "name:" + name);
+        tvDes.setText("我从Module User 跳转过来"+"\n"+"接受到的参数"+"\n"+"\n"+" ID:" + id + "," + "name:" + name);
 
     }
 

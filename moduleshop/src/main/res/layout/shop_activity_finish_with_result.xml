@@ -5,11 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Module Shop"
+        app:titleTextColor="#FFFFFF"/>
+
+
     <TextView
         android:id="@+id/tv_des"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I am shop main activity"
+        android:text="我从Module User 跳转过来"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -20,7 +32,7 @@
         android:id="@+id/btn_finish_with_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finish with result"
+        android:text="点击 Finish with result"
         android:textSize="20sp"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"

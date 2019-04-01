@@ -6,6 +6,4 @@ public class RouterServiceException extends Exception {
 		super(message);
 	}
 
-
-
 }

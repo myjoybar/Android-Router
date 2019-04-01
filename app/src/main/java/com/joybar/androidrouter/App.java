@@ -6,10 +6,9 @@ import android.util.Log;
 
 import com.joybar.annotation.router.annotation.RegisterModule;
 import com.joybar.compiler.helper.RouterInject;
+import com.joybar.librouter.application.ApplicationService;
 import com.joybar.librouter.routercore.Router;
 import com.joybar.librouter.routercore.Rule;
-import com.joybar.librouter.application.ApplicationService;
-import com.joybar.librouter.guider.routerguider.RouterGuider;
 import com.joybar.librouter.routerservice.RouterServiceManager;
 import com.joybar.moduleshop.application.ShopApplication;
 import com.joybar.moduleuser.application.UserReleaseApplication;
@@ -40,30 +39,38 @@ public class App extends Application implements ApplicationService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		RouterGuider.inject(this);
-		initRouterByAnnotation();
-		// OR
-		// initRouterByDynamic();
-		loadModuleApplicationService();
-
-		RouterServiceManager.getInstance().init(this);
+		registerRouter();
 	}
 
 
+
+	private void registerRouter(){
+		//RouterGuider.inject(this);
+		initRouterByAnnotation();// 注册Activity 路由
+		// OR
+		// initRouterByDynamic(); // 注册Activity 路由
+		loadModuleApplicationService(); //加载每个module的Application，使其完成初始化工作
+		RouterServiceManager.getInstance().init(this);// 注册组件之间服务路由
+
+	}
+
 	private void initRouterByAnnotation() {
+
+		//参数为module name
+		RouterInject.registerModule("shop");
+		RouterInject.registerModule("user");
+
+
 //		RouterInject.inject("com.joybar.moduleuser.MainActivity");
 //		RouterInject.inject("com.joybar.moduleshop.MainActivity");
 //		RouterInject.inject("com.joybar.moduleshop.ReceiveParamActivity");
 //		RouterInject.inject("com.joybar.moduleshop.FinishWithResultActivity");
 //		RouterInject.inject("com.joybar.moduleshop.PostModuleDataActivity");
 
-
-		RouterInject.registerModule("shop");
-		RouterInject.registerModule("user");
-
 	}
 
 	private void initRouterByDynamic() {
+		//需要把每个注册的页面添加到路由表里面，不推荐
 		Router.registerRouters(new Router.RouterTable() {
 			@Override
 			public List<Rule> buildRuleList() {
@@ -72,7 +79,6 @@ public class App extends Application implements ApplicationService {
 				ruleList.add(new Rule("shop", "main", com.joybar.moduleshop.MainActivity.class));
 				ruleList.add(new Rule("shop", "receive_param", com.joybar.moduleshop.ReceiveParamActivity.class));
 				ruleList.add(new Rule("shop", "finish_with_result", com.joybar.moduleshop.FinishWithResultActivity.class));
-				ruleList.add(new Rule("shop", "post_module_data", com.joybar.moduleshop.PostModuleDataActivity.class));
 				return ruleList;
 			}
 		});

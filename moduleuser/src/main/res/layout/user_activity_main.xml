@@ -1,98 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/tv_des"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="I am user main activity"
-        android:textSize="20sp"
+        android:background="@color/colorPrimary"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Module User"
+        app:titleTextColor="#FFFFFF">
+
+    </android.support.v7.widget.Toolbar>
 
 
     <Button
         android:id="@+id/btn_simple_navigate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="简单跳转"
+        android:text="简单跳转到跳转到Module Shop"
+        android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_des" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
 
     <Button
         android:id="@+id/btn_with_param"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="参数跳转"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_simple_navigate" />
-
-    <Button
-        android:id="@+id/btn_with_interceptor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Interceptor跳转"
+        android:text="参数跳转到跳转到Module Shop"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_with_param" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_simple_navigate"/>
+
+    <Button
+        android:id="@+id/btn_with_interceptor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Interceptor跳转到跳转到Module Shop"
+
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_with_param"/>
 
 
     <Button
         android:id="@+id/btn_for_result"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="stratActivityForResult"
+        android:text="stratActivityForResult方式跳转到跳转到Module Shop"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_with_interceptor" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_with_interceptor"/>
 
-    <Button
-        android:id="@+id/btn_module_event_bus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="module event bus:module之间传输发送数据"
-        android:textAllCaps="false"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_for_result" />
 
     <Button
         android:id="@+id/btn_component_invoke_sync"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="组件之间同步调用"
+        android:text="同步调用Module Shop中的服务，有参数，有返回值"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_module_event_bus" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_for_result"/>
 
     <Button
         android:id="@+id/btn_component_invoke_async"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="组件之间异步调用"
+        android:text="异步调用Module Shop中的服务，提供回调函数"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_component_invoke_sync" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_component_invoke_sync"/>
 
 
 </android.support.constraint.ConstraintLayout>

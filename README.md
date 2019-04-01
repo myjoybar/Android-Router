@@ -2,7 +2,7 @@
 一个使用简单方便的Android router框架，
 一个完整的Android模块化开发示例
 
- ![image](https://github.com/myjoybar/Android-Router/blob/master/screenshots/screenshot.jpg)
+ ![image](https://github.com/myjoybar/Android-Router/blob/master/screenshots/screenshot.gif)
 
  [Blog地址](https://blog.csdn.net/yalinfendou/article/details/78822749)
 ## Features
@@ -12,25 +12,27 @@
  - 支持module之间传大容量的数据
  - 支持添加拦截器
  - 支持module单独作为Application编译
+ - 支持module之间同步或者异步服务调用
  - 支持主app的Application在各个module内调用
  - 路由引导模块：自动生成module的调用方法 （ Thank for [Obo](https://github.com/OboBear)）
+
 
  
 ## Installation
 ### Gradle Dependency
 #####   Add the library to your project build.gradle
 ```gradle
-compile 'com.joybar.router:librouter:1.0.7'
-compile 'com.joybar.router:compiler:1.0.7' //注解处理器来在编译期通过读取@RouterRegister()注解并解析,
-compile 'com.joybar.router:routerguider:1.0.7'//路由引导模块，自动生module的调用方法
+    compile 'com.joybar.router:librouter:1.1.7'
+    compile 'com.joybar.router:compiler:1.1.7'
+    compile 'com.joybar.router:annotation:1.1.7'
 ```
 
 ## Structure
 - app： 一个空壳，本身不实现任何业务逻辑，最终打包成完整的release APK 
 - moduleshop：实现shop相关的业务逻辑，可单独编译成APK
 - moduleuser：实现user相关的业务逻辑，可单独编译成APK，和其它module通过router通信
-- routerguidercore：为各个module生成自动调用的方法
-- moduleEventBus：实现module之间通信
+- librouter：router实现的核心类
+
 
  ![image](https://github.com/myjoybar/Android-Router/blob/master/screenshots/screenshot1.png)
  
@@ -72,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
 并在Application或者初始页面初始化注解路由器
 
 ```java
-RouterInject.inject("com.joybar.moduleuser.MainActivity");
-RouterInject.inject("com.joybar.moduleshop.MainActivity");
+//参数为module name
+RouterInject.registerModule("shop");
+RouterInject.registerModule("user");
 ```
 
 ### Step2（生成路由引导模块，可选）
@@ -109,14 +112,13 @@ public class Builder {
 
     public static void main(String[] args) {
         System.out.println("=============start build=============");
-        CodeMaker.autoGenerateModuleMethodName("moduleshop");
-        CodeMaker.autoGenerateModuleMethodName("moduleuser");
+        CodeMaker.autoGenerateModuleMethodName("moduleshop","/baselib/src/main/java","com.joy.baselib.guider.routertable");
         System.out.println("=============end build=============");
     }
 
 }
 ```
-#### 3.在routertable路径下生成RouterTable$$Moduleuser和RouterTable$$Moduleshop以及相关的调用方法
+#### 3.在参数指定的路径下生成RouterTable$$Moduleuser和RouterTable$$Moduleshop以及相关的调用方法
 
 RouterTable$$Moduleshop 为自动生成的类,其方法可供其他Module调用
 
@@ -218,44 +220,109 @@ RouterTable$$Moduleshop
 #### 4.  为Router 添加拦截器
 
 ```java
-  Router.create()
-                .buildRule(new Rule("shop", "main"))
-                .addInterceptor(new TestInterceptor()).withInterceptorCallback(new InterceptorCallback() {
-            @Override
-            public void onIntercept(Object result) {
-                Toast.makeText(context, result.toString(), Toast.LENGTH_LONG).show();
-            }
+     RouterTable$$Moduleshop.launchMain()
+             .withRouteInterceptor(new TestInterceptor(mContext))
+             .withCallBack(new InterceptorCallback() {
+                 @Override
+                 public void onIntercept(Object result) {
+                     Toast.makeText(mContext, result.toString(), Toast.LENGTH_LONG).show();
+                 }
 
-            @Override
-            public void onContinue() {
-                Toast.makeText(context, "continue", Toast.LENGTH_LONG).show();
-
-            }
-        }).navigate(context);
+                 @Override
+                 public void onContinue() {
+                     Toast.makeText(mContext, "continue", Toast.LENGTH_LONG).show();
+                 }
+             })
+             .navigate(mContext);
 ```
-#### 5.  ModuleEventBus：modlue之间简单通信
+#### 5.  modlue之间同步或者异步调用服务
 
 
-##### Step1 在Activity#onCreate注册
+##### Step1 在module创建service类并实现IBaseService
 ```java
-ModuleEventBus.getInstance().register(this);
-```
-##### Step2 在Activity#onDestroy反注册
-```java
-ModuleEventBus.getInstance().unregister(this);
-```
-##### Step3 发送数据
-```java
-ModuleEventBus.getInstance().post(new ShopInfo("KFC", "Hangzhou Xihu"));
+public class ShopService implements IBaseService {
+	private static final String SERVICE_CMD_TEST = "cmd_test";
+	private static final String SERVICE_CMD_LOGIN = "cmd_login";
 
-```
-##### Step4 使用注解，接收数据
-```java
-@ModuleEvent()
-public void testReceiveModuleEventBusData(ShopInfo shopInfo) {
-    Toast.makeText(this, "I am user main activity,receive data from shop,msg=" + shopInfo.toString(), Toast
-            .LENGTH_LONG).show();
+	@Override
+	public Object execute(String cmd, Object... args) {
+		Object obj[] = args;
+		String msg = "";
+		if (obj != null && obj.length != 0) {
+			msg = Arrays.toString(obj);
+		}
+		if (SERVICE_CMD_TEST.equals(cmd)) {
+			return "成功同步调用 Shop service " + SERVICE_CMD_TEST + "服务，返回值：" + msg;
+		}
+		return null;
+	}
+
+	@Override
+	public void executeAsync(String cmd, IServiceCallBack iServiceCallBack, Object... args) {
+
+		if (SERVICE_CMD_LOGIN.equals(cmd)) {
+
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			if ("Tom".equals(args[0]) && "123456".equals(args[1])) {
+				iServiceCallBack.onSuccess("登录成功");
+			} else {
+				iServiceCallBack.onFailure(new RouterServiceException("用户名或者密码错误"));
+			}
+
+		}
+	}
+
+	@Override
+	public String moduleServiceName() {
+
+		return "RSShopService";
+	}
 }
+```
+##### Step2 在module对应的AndroidManifest文件中注册meta信息
+```java
+<meta-data
+        android:name="RSShopService"
+        android:value="com.joybar.moduleshop.ShopService"/>
+```
+##### Step3 在Application中初始化
+```java
+RouterServiceManager.getInstance().init(this);// 注册组件之间服务路由
+
+```
+##### Step4 在User module中使用
+```java
+//调用同步服务
+IBaseService service = RouterServiceManager.getInstance().getService("RSShopService");
+String result = (String) service.execute("cmd_test","ABCDE");
+Toast.makeText(mContext, "User module " + result,Toast.LENGTH_LONG).show();
+
+
+//调用异步服务
+IBaseService service = RouterServiceManager.getInstance().getService("RSShopService");
+String userName = "Tom";
+String pwd = "123456";
+service.executeAsync("cmd_login", new IServiceCallBack() {
+
+	@Override
+	public void onSuccess(Object result) {
+
+		Toast.makeText(mContext, result.toString(), Toast.LENGTH_LONG).show();
+
+	}
+
+	@Override
+	public void onFailure(RouterServiceException routerServiceException) {
+		Toast.makeText(mContext, routerServiceException.getMessage(), Toast.LENGTH_LONG).show();
+	}
+}, userName, pwd);
+				
+				
 ```
 
 

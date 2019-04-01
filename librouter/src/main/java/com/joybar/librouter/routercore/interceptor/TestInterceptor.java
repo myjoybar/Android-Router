@@ -1,6 +1,8 @@
 package com.joybar.librouter.routercore.interceptor;
 
 
+import android.content.Context;
+
 import com.joybar.librouter.routercore.RouterRequest;
 
 /**
@@ -8,9 +10,16 @@ import com.joybar.librouter.routercore.RouterRequest;
  */
 
 public class TestInterceptor implements RouteInterceptor {
-    @Override
-    public boolean isIntercepted(RouterRequest routerRequest) {
-       // Toast.makeText(routerRequest.getContext(), "I am a test interceptor", Toast.LENGTH_LONG).show();
-        return false;
-    }
+
+	private Context mContext;
+
+	public TestInterceptor(Context context) {
+		this.mContext = context;
+	}
+
+	@Override
+	public boolean isIntercepted(RouterRequest routerRequest) {
+		//Toast.makeText(mContext, "I am a test interceptor", Toast.LENGTH_LONG).show();
+		return false;
+	}
 }

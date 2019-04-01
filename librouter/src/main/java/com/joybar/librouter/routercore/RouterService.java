@@ -31,7 +31,7 @@ public class RouterService implements IRouterManagerService {
         CheckUtils.checkNotNull(rule);
         Rule registerRule = Router.ruleMap.get(rule);
         if (registerRule == null) {
-            throw new IllegalArgumentException("You cannot build an unregistered rule"+": "+rule.toString() +",have you register it?");
+            throw new IllegalArgumentException("You cannot build an unregistered rule"+": "+rule.toString() +",have you registered it?");
         }
         routerRequest.setRule(registerRule);
         return this;
@@ -69,7 +69,7 @@ public class RouterService implements IRouterManagerService {
     private Intent buildIntent(Context context) {
         Class klass = routerRequest.getRule().getClazz();
         if (klass == null) {
-            throw new RuntimeException("class can  not be  null in RouterRequest,have your set it " +
+            throw new RuntimeException("class can  not be  null in RouterRequest,have you set it " +
                     "in  your RouterService");
         }
         Intent intent = new Intent(context, routerRequest.getRule().getClazz());

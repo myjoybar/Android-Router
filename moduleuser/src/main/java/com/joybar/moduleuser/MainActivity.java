@@ -1,5 +1,6 @@
 package com.joybar.moduleuser;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joybar.annotation.router.annotation.RegisterRouter;
-import com.joybar.librouter.routercore.InterceptorCallback;
-import com.joybar.librouter.routercore.Router;
-import com.joybar.librouter.routercore.Rule;
 import com.joybar.librouter.guider.routertable.RouterTable$$Moduleshop;
+import com.joybar.librouter.routercore.InterceptorCallback;
 import com.joybar.librouter.routercore.interceptor.TestInterceptor;
 import com.joybar.librouter.routerservice.RouterServiceManager;
 import com.joybar.librouter.routerservice.exception.RouterServiceException;
@@ -25,21 +23,19 @@ import com.joybar.moduleuser.application.UserApplication;
 @RegisterRouter(module = "user", path = "main")
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
+    private Context mContext;
     private Button btnGotoShop;
     private Button btnGotoShopWithParam;
     private Button btnGotoShopForResult;
     private Button btnGotoShopWithInterceptor;
-    private Button btnModuleEventBus;
-    private TextView tvDes;
-    private Context context;
-    private View btnSyncInvokeComponent;
-    private View btnAsyncInvokeComponent;
+    private Button btnSyncInvokeComponent;
+    private Button btnAsyncInvokeComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_main);
-        context = this;
+        mContext = this;
         initView();
         initListener();
         UserApplication.getInstance().getApplication();
@@ -51,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
         btnGotoShopWithParam = findViewById(R.id.btn_with_param);
         btnGotoShopForResult = findViewById(R.id.btn_for_result);
         btnGotoShopWithInterceptor = findViewById(R.id.btn_with_interceptor);
-        btnModuleEventBus = findViewById(R.id.btn_module_event_bus);
-        tvDes = findViewById(R.id.tv_des);
         btnSyncInvokeComponent = findViewById(R.id.btn_component_invoke_sync);
         btnAsyncInvokeComponent = findViewById(R.id.btn_component_invoke_async);
     }
@@ -64,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RouterTable$$Moduleshop
                         .launchMain()
-                        .navigate(context);
+                        .navigate(mContext);
                 // OR
 //                Router.create()
 //                        .buildRule(new Rule("shop", "main"))
-//                        .navigate(context);
+//                        .navigate(mContext);
 
 
             }
@@ -80,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RouterTable$$Moduleshop
                         .launchReceiveParam("obo", 25)
-                        .navigate(context);
+                        .navigate(mContext);
 
                 // OR
 //                final Bundle bundle = new Bundle();
@@ -89,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 //                Router.create()
 //                        .buildRule(new Rule("shop", "receive_param"))
 //                        .withExtra(bundle)
-//                        .navigate(context);
+//                        .navigate(mContext);
             }
         });
 
@@ -97,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                RouterTable$$Moduleshop.launchFinishWithResult()
-                        .navigate(MainActivity
-                        .this, 2);
+                RouterTable$$Moduleshop
+                        .launchFinishWithResult()
+                        .navigate((Activity) mContext, 2);
 
                 // OR
 //                Router.create()
@@ -115,41 +109,52 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Router.create()
-                        .buildRule(new Rule("shop", "main"))
-                        .addInterceptor(new TestInterceptor()).withInterceptorCallback(new InterceptorCallback() {
-                    @Override
-                    public void onIntercept(Object result) {
-                        Toast.makeText(context, result.toString(), Toast.LENGTH_LONG).show();
-                    }
+             RouterTable$$Moduleshop.launchMain()
+                     .withRouteInterceptor(new TestInterceptor(mContext))
+                     .withCallBack(new InterceptorCallback() {
+                         @Override
+                         public void onIntercept(Object result) {
+                             Toast.makeText(mContext, result.toString(), Toast.LENGTH_LONG).show();
+                         }
 
-                    @Override
-                    public void onContinue() {
-                        Toast.makeText(context, "continue", Toast.LENGTH_LONG).show();
+                         @Override
+                         public void onContinue() {
+                             Toast.makeText(mContext, "continue", Toast.LENGTH_LONG).show();
+                         }
+                     })
+                     .navigate(mContext);
 
-                    }
-                }).navigate(context);
+
+                // OR
+//                Router.create()
+//                        .buildRule(new Rule("shop", "main"))
+//                        .addInterceptor(new TestInterceptor(mContext)).withInterceptorCallback(new InterceptorCallback() {
+//                    @Override
+//                    public void onIntercept(Object result) {
+//                        Toast.makeText(mContext, result.toString(), Toast.LENGTH_LONG).show();
+//                    }
+//
+//                    @Override
+//                    public void onContinue() {
+//                        Toast.makeText(mContext, "continue", Toast.LENGTH_LONG).show();
+//
+//                    }
+//                }).navigate(mContext);
+
+
             }
         });
 
-        btnModuleEventBus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RouterTable$$Moduleshop
-                        .launchPostModuleData()
-                        .navigate(context);
-            }
-        });
 
 
         btnSyncInvokeComponent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                IBaseService service = RouterServiceManager.getInstance().getService("DTShopService");
-                String result = (String) service.execute("testReturn");
-
-                Toast.makeText(context, "invoke from another component synchronous result is " + result,Toast.LENGTH_LONG).show();
+                //调用同步服务
+                IBaseService service = RouterServiceManager.getInstance().getService("RSShopService");
+                String result = (String) service.execute("cmd_test","ABCDE");
+                Toast.makeText(mContext, "User module " + result,Toast.LENGTH_LONG).show();
             }
         });
 
@@ -158,25 +163,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                IBaseService service = RouterServiceManager.getInstance().getService("DTShopService");
+                //调用异步服务
+				IBaseService service = RouterServiceManager.getInstance().getService("RSShopService");
+				String userName = "Tom";
+				String pwd = "123456";
+				service.executeAsync("cmd_login", new IServiceCallBack() {
 
-                service.executeAsync("testReturnWithCallBack", new IServiceCallBack() {
+					@Override
+					public void onSuccess(Object result) {
 
-                    @Override
-                    public void onSuccess(Object result) {
+						Toast.makeText(mContext, result.toString(), Toast.LENGTH_LONG).show();
 
-                        Toast.makeText(context, "invoke from another component asynchronous result is " + result,Toast.LENGTH_LONG).show();
+					}
 
-                    }
+					@Override
+					public void onFailure(RouterServiceException routerServiceException) {
+						Toast.makeText(mContext, routerServiceException.getMessage(), Toast.LENGTH_LONG).show();
+					}
+				}, userName, pwd);
 
-                    @Override
-                    public void onFailure(RouterServiceException routerServiceException) {
-
-                    }
-                });
-
-            }
-        });
+			}
+		});
     }
 
 
@@ -185,12 +192,12 @@ public class MainActivity extends AppCompatActivity {
         if (data == null) {
             return;
         }
+        Log.d(TAG,"requestCode = "+requestCode+", resultCode = "+resultCode);
         String result01 = data.getStringExtra("Result01");
         switch (requestCode) {
             case 2:
-                Toast.makeText(this, "onActivityResult:"+result01, Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "回传的值：Result01:"+result01, Toast.LENGTH_LONG).show();
                 break;
-
             default:
                 break;
         }
@@ -199,6 +206,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy");
     }
 }
