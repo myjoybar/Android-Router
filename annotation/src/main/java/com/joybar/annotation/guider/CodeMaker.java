@@ -51,35 +51,7 @@ public class CodeMaker {
 		System.out.println("==================routerGuiderPckName=" + routerGuiderPckName + "==================");
 		FILE_PATH = filePath;
 		ROUTER_GUIDER_PKN = routerGuiderPckName;
-
-		String classBuilderName = ROUTER_GUIDER_CLASS_PREFIX+ StringUtil.getTypeWithFirstUpperCase(moduleName);
-		TypeSpec.Builder classBuilder = TypeSpec.classBuilder(classBuilderName).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
-		File workFile = new File(moduleName +ROUTER_GUIDER_CLASS_FILE_PATH);
-		List<File> files = FileUtils.getAllFiles(workFile);
-		System.out.println("files.size() = " + files.size());
-
-		int i = 0;
-		for (File file : files) {
-			System.out.println("===================" + moduleName + i++ + "==================");
-			StringBuffer stringBuffer = new StringBuffer("");
-			try {
-				FileReader fileReader = new FileReader(file);
-				BufferedReader bufferedReader = new BufferedReader(fileReader);
-				String s;
-				while ((s = bufferedReader.readLine()) != null) {
-					stringBuffer.append(s);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			decoString(stringBuffer.toString(), classBuilder);
-		}
-		JavaFile javaFile = JavaFile.builder(ROUTER_GUIDER_PKN, classBuilder.build()).build();
-		try {
-			javaFile.writeTo(new File(System.getProperty("user.dir") + FILE_PATH));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		autoGenerateModuleMethodName(moduleName);
 	}
 
 

@@ -15,8 +15,12 @@ public class Builder {
 
 	public static void main(String[] args) {
 		System.out.println("=============start build=============");
-		CodeMaker.autoGenerateModuleMethodName("moduleshop");
-		CodeMaker.autoGenerateModuleMethodName("moduleuser");
+//		CodeMaker.autoGenerateModuleMethodName("moduleshop");
+//		CodeMaker.autoGenerateModuleMethodName("moduleuser");
+
+		buildGuiderJavaFile("moduleshop",FILE_PATH,ROUTER_GUIDER_PKN);
+		buildGuiderJavaFile("moduleuser",FILE_PATH,ROUTER_GUIDER_PKN);
+
 		System.out.println("=============end build=============");
 	}
 
